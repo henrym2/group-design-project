@@ -1,13 +1,17 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/login">Login</router-link>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <router-link to="/projects">Projects</router-link>
-
-    </div>
     <v-app>
+      <v-app-bar absolute>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-toolbar-title>
+          App Name
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+          <router-link to="/login" class="mr-2 nav-link">Login</router-link>
+          <router-link to="/" class="mr-2 nav-link">Home</router-link> 
+          <router-link to="/about" class="mr-2 nav-link">About</router-link>
+          <router-link to="/projects" class="nav-link">Projects</router-link>
+      </v-app-bar>
       <v-main>
         <router-view/>
       </v-main>
@@ -16,13 +20,11 @@
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.nav-link {
+  color: gray;
+  text-decoration: none;
 }
+
 
 #nav {
   padding: 30px;
