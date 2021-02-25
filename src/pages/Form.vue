@@ -1,5 +1,5 @@
 <template>
-    <div class="columns" id="app">
+    <v-row class="ml-2 mr-2" style="height:97vh" align="center">
         <div class="column is-two-thirds">
             <section class="section">
                 <h1 class="title">Clinician Form Submission Form</h1>
@@ -84,7 +84,7 @@
                 </div>
             </section>
         </div>
-    </div>
+    </v-row>
 </template>
 
 <script>

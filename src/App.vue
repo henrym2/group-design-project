@@ -1,13 +1,40 @@
 <template>
   <v-app>
     <v-main>
-      <v-toolbar dark src="https://images.pexels.com/photos/3481163/pexels-photo-3481163.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+    <div>
+      <v-app-bar
+        dense
+        dark
+      >
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <v-toolbar-title>Title</v-toolbar-title>
-      </v-toolbar>
+        <v-toolbar-title>Page title</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-menu
+          left
+          bottom
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
+  
+          <v-list>
+            <v-list-item @click="() => {}">
+              <v-list-item-title>Log out</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-app-bar>
+    </div>
       
       <project-list></project-list>
       <Login></Login>
+     
       
       
     </v-main>
@@ -23,9 +50,9 @@ export default {
   name: 'App',
 
   components: {
-    //Form,
     Login,
-    ProjectList
+    ProjectList,
+    //Form,
   },
 
   data: () => ({
