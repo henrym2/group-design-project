@@ -1,66 +1,39 @@
 <template>
-  <v-app>
-    <v-main>
-    <div>
-      <v-app-bar
-        dense
-        dark
-      >
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <v-toolbar-title>Page title</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-menu
-          left
-          bottom
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              icon
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </template>
-  
-          <v-list>
-            <v-list-item @click="() => {}">
-              <v-list-item-title>Log out</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </v-app-bar>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/login">Login</router-link>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+      <router-link to="/projects">Projects</router-link>
+
     </div>
-      
-      <project-list></project-list>
-      <Login></Login>
-     
-      
-      
-    </v-main>
-  </v-app>
+    <v-app>
+      <v-main>
+        <router-view/>
+      </v-main>
+    </v-app>
+  </div>
 </template>
 
-<script>
-//import Form from "./pages/Form.vue"
-import Login from "./pages/Login.vue"
-import ProjectList from "./pages/ProjectList.vue"
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  name: 'App',
+#nav {
+  padding: 30px;
 
-  components: {
-    Login,
-    ProjectList,
-    //Form,
-  },
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-  data: () => ({
-    //
-  }),
-};
-</script>
-
-<style>
-  @import "https://unpkg.com/pattern.css";
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
 </style>
