@@ -81,7 +81,7 @@
 
             </v-col>      
             <v-col
-                cols="6"
+                cols="8"
             >
                 <v-card style="height:20rem" class="mb-5" v-for="x in [1,2,3,4,5]" :key="x">
                     <v-card-title>
