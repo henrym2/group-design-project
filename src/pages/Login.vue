@@ -14,7 +14,7 @@
                 <input type="text" class="textboxB" placeholder="password">
                 <button class="login-btn">LOGIN</button>
 
-                <a href="" class="terms">By signing in I agree to the Privacy Policy and Terms of Service</a>
+                <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
 
                 <p class="create-link"> Don’t have an account? <router-link to="signup" class="nav-link">{{"Sign Up"}}</router-link> </p>
                             

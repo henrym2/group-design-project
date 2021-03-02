@@ -62,11 +62,6 @@ export default {
           text: "Forms",
           path: "/form"
         },
-        {
-          id: 4,
-          text: "Sign up",
-          path: "/signup"
-        },
       ]
     }
   },
