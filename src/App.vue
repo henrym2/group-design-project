@@ -61,7 +61,7 @@ export default {
           id: 3,
           text: "Forms",
           path: "/form"
-        }
+        },
       ]
     }
   },
