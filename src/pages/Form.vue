@@ -93,7 +93,6 @@
         getMessage: field => `You need enter at least 5 words in ${field} field`,
         validate: value => value.toLowerCase().indexOf("please") !== -1
     });
-
     export default {
         name: "VNTForm",
         data: () => ({
@@ -133,7 +132,7 @@
 <style scoped>
     #results {
         position: fixed;
-        right: 0;
-        top: 5%;
+        right: 10%;
+        top: 15%;
     }
 </style>
