@@ -59,7 +59,7 @@
                             <div class="control">
                                 <label class="checkbox">
                                     <input type="checkbox" v-model="form.terms">
-                                    I agree to the <a href="login">terms and conditions</a>
+                                    I agree to the<p class="terms"> <router-link to="T&C" class="nav-link">{{"Privacy Policy and Terms of Service"}}</router-link> </p>
                                 </label>
                             </div>
                         </div>
