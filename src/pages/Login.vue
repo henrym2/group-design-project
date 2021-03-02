@@ -8,21 +8,15 @@
         </div>
 
         <div class="login"> 
-            <div class="content">
                 <h1 class="welcome">Welcome Back!</h1>
                 <input type="text" class="textboxA" placeholder="e-mail">
                 <input type="text" class="textboxB" placeholder="password">
                 <button class="login-btn">LOGIN</button>
 
                 <a href="" class="terms">By signing in I agree to the Privacy Policy and Terms of Service</a>
-
                 <p class="create-link"> Don’t have an account? <a href="" style="color:#0558FC; text-decoration: none;"> Sign Up </a> </p>
             </div>
-            
-
-        </div>
-          
-          
+   
       </v-row>
   </v-container>
 </template>
@@ -36,14 +30,14 @@ export default {
 <style>
     .slogan{
         position: absolute;
-        left: 20.77%;
+        left: 10.77%;
         right: 70.32%;
         top: 46.38%;
         bottom: 50.31%;
 
         height: 16px;
         width: 50%;
-        text-align: center;
+        text-align: left;
 
         font-family: Rubik;
         font-style: normal;
@@ -52,21 +46,21 @@ export default {
         line-height: 45px;
         text-transform: uppercase;
 
-        padding: 15px;
+        padding-bottom: 50px;
 
         color: #FFFFFF;
     }
 
     .description{
         position: absolute;
-        left: 20.77%;
+        left: 10.77%;
         right: 70.32%;
         top: 52.38%;
         bottom: 50.31%;
 
         height: 16px;
         width: 50%;
-        text-align: center;
+        text-align: left;
 
         font-family: Rubik;
         font-style: normal;
@@ -75,7 +69,7 @@ export default {
         line-height: 45px;
 
         color: #FFFFFF;
-        padding: 20px;
+        padding-top: 50px;
     }
 
     .rect{
@@ -84,16 +78,12 @@ export default {
         right: 65.68%;
         top: 0%;
         bottom: 0%;
+        height: 100vh;
 
         background: #0C162B;
     }
 
-    .content{
-        height: 329px;
-        width: 264px;
-        left: 382px;
-        top: 88px;
-    }
+   
 
     .login{
         position: absolute;
@@ -101,6 +91,10 @@ export default {
         right: 0%;
         top: 0%;
         bottom: 0%;
+
+        height: 100vh;
+        margin: 0px; 
+        padding: 0px;
 
         background: #FFFFFF;
     }
