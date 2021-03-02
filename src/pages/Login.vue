@@ -1,30 +1,28 @@
 <template>
-  <v-container>
+  <v-container >
       <v-row class="ml-2 mr-2" style="height:97vh" align="center">
-          <v-col >
-              <v-card elevation="2" >
-                  <v-card-title class="d-flex justify-center mt-4">
-                      <h3>Welcome back</h3>
-                  </v-card-title>
-                  <v-card-text>
-                      <div>
-                          <v-text-field label="Username"></v-text-field>
-                      </div>
-                      <div>
-                          <v-text-field label="Password"></v-text-field>
-                      </div>
-                      <div class="d-flex">
-                        <v-btn color="primary">Login</v-btn>
-                        <a class="mt-2 ml-auto">Forgot password</a>
-                      </div>
-                  </v-card-text>
-              </v-card>
-          </v-col>
-          <v-col  style="height:78vh">
-             <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#FF0066" d="M24.2,-40C35.7,-35.3,52.4,-37.6,57.5,-32.1C62.5,-26.6,56,-13.3,53.4,-1.5C50.8,10.3,52.1,20.6,47.3,26.4C42.4,32.2,31.3,33.5,22.3,35C13.4,36.4,6.7,37.9,-1.7,40.8C-10.1,43.7,-20.2,48.1,-34.1,49.6C-48.1,51.1,-65.9,49.7,-72.1,41C-78.3,32.2,-72.8,16.1,-72.1,0.4C-71.3,-15.3,-75.5,-30.6,-72.2,-44.5C-69,-58.3,-58.5,-70.7,-45.3,-74.4C-32,-78.2,-16,-73.2,-4.8,-64.8C6.4,-56.5,12.7,-44.7,24.2,-40Z" transform="translate(100 100)" />
-            </svg>
-          </v-col>
+          
+        <div class="rect">
+            <h2 class="slogan">PLATFORM SLOGAN</h2>
+            <p class="description">Platform Description</p>
+        </div>
+
+        <div class="login"> 
+            <div class="content">
+                <h1 class="welcome">Welcome Back!</h1>
+                <input type="text" class="textboxA" placeholder="e-mail">
+                <input type="text" class="textboxB" placeholder="password">
+                <button class="login-btn">LOGIN</button>
+
+                <a href="" class="terms">By signing in I agree to the Privacy Policy and Terms of Service</a>
+
+                <p class="create-link"> Don’t have an account? <a href="" style="color:#0558FC; text-decoration: none;"> Sign Up </a> </p>
+            </div>
+            
+
+        </div>
+          
+          
       </v-row>
   </v-container>
 </template>
@@ -36,5 +34,213 @@ export default {
 </script>
 
 <style>
+    .slogan{
+        position: absolute;
+        left: 20.77%;
+        right: 70.32%;
+        top: 46.38%;
+        bottom: 50.31%;
+
+        height: 16px;
+        width: 50%;
+        text-align: center;
+
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 380;
+        font-size: 30px;
+        line-height: 45px;
+        text-transform: uppercase;
+
+        padding: 15px;
+
+        color: #FFFFFF;
+    }
+
+    .description{
+        position: absolute;
+        left: 20.77%;
+        right: 70.32%;
+        top: 52.38%;
+        bottom: 50.31%;
+
+        height: 16px;
+        width: 50%;
+        text-align: center;
+
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 50;
+        font-size: 18px;
+        line-height: 45px;
+
+        color: #FFFFFF;
+        padding: 20px;
+    }
+
+    .rect{
+        position: absolute;
+        left: 0%;
+        right: 65.68%;
+        top: 0%;
+        bottom: 0%;
+
+        background: #0C162B;
+    }
+
+    .content{
+        height: 329px;
+        width: 264px;
+        left: 382px;
+        top: 88px;
+    }
+
+    .login{
+        position: absolute;
+        left: 34.32%;
+        right: 0%;
+        top: 0%;
+        bottom: 0%;
+
+        background: #FFFFFF;
+    }
+
+    .welcome{
+        position: absolute;
+        left: 22%;
+        right: 15.1%;
+        top: 30.22%;
+        bottom: 76.19%;
+
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 48px;
+        line-height: 36px;
+        text-align: center;
+        text-transform: uppercase;
+
+        color: #0C162B;
+    }
+
+    .textboxA{
+        height: 55px;
+        width: 50%;
+       
+        border-radius: 8px;
+
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 45.37%;
+        bottom: 56.94%;
+
+        background: #EEF1F5;
+
+        padding: 10px;
+    }
+
+    .textboxB{
+        height: 55px;
+        width: 50%;
+       
+        border-radius: 8px;
+
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 55.37%;
+        bottom: 56.94%;
+
+        background: #EEF1F5;
+
+        padding: 10px;
+    }
+
+    ::placeholder{
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 13px;
+        display: flex;
+        align-items: center;
+        text-transform: capitalize;
+
+        padding-left: 8px;
+
+        color: rgba(82, 84, 88, 0.78);
+    }
+
+    .login-btn{
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 70.01%;
+        bottom: 32.3%;
+
+        background: #1555D4;
+        border-radius: 8px;
+        
+        height: 55px;
+        width: 50%;
+
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 13.5px;
+        line-height: 14px;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 3px;
+        text-transform: capitalize;
+
+        color: #FFFFFF;
+
+        font-family: Rubik;
+ 
+    }
+
+    .terms{
+        position: absolute;
+        left: 18.71%;
+        right: 12.39%;
+        top: 78.95%;
+        bottom: 21.12%;
+
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 14px;
+        /* or 156% */
+
+        align-items: center;
+        text-align: center;
+        text-decoration-line: underline;
+
+        color: rgba(82, 84, 88, 0.58) !important;
+    }
+
+    .create-link{
+        position: absolute;
+        left: 45.71%;
+        right: 20.39%;
+        top: 83.64%;
+        bottom: 12.42%;
+        width: 193px;
+
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        /* or 156% */
+
+       
+        text-align: center;
+
+        color: #525458;
+    }
 
 </style>
