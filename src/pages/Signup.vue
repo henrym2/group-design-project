@@ -9,28 +9,27 @@
 
         <div class="login"> 
             <div class="content">
-                <h1 class="welcome">Welcome Back!</h1>
+                <h1 class="welcome">Sign up!</h1>
                 <input type="text" class="textboxA" placeholder="e-mail">
                 <input type="text" class="textboxB" placeholder="password">
-                <button class="login-btn">LOGIN</button>
+                <input type="text" class="textboxC" placeholder="repeat password">
+                <input type="text" class="textboxD" placeholder="full name">
+                <button class="login-btn">SIGN UP</button>
 
-                <a href="" class="terms">By signing in I agree to the Privacy Policy and Terms of Service</a>
+                <a href="" class="terms">By signing up I agree to the Privacy Policy and Terms of Service</a>
 
-                <p class="create-link"> Don’t have an account? <router-link to="signup" class="nav-link">{{"Sign Up"}}</router-link> </p>
-                            
             </div>
             
 
         </div>
           
-        
+          
       </v-row>
   </v-container>
 </template>
 
 <script>
 export default {
-
 
 }
 </script>
@@ -158,6 +157,38 @@ export default {
 
         padding: 10px;
     }
+    .textboxC{
+        height: 55px;
+        width: 50%;
+       
+        border-radius: 8px;
+
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 65.37%;
+        bottom: 56.94%;
+
+        background: #EEF1F5;
+
+        padding: 10px;
+    }
+        .textboxD{
+        height: 55px;
+        width: 50%;
+       
+        border-radius: 8px;
+
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 35.37%;
+        bottom: 56.94%;
+
+        background: #EEF1F5;
+
+        padding: 10px;
+    }
 
     ::placeholder{
         font-family: Rubik;
@@ -178,7 +209,7 @@ export default {
         position: absolute;
         left: 28.06%;
         right: 15.87%;
-        top: 70.01%;
+        top: 75.01%;
         bottom: 32.3%;
 
         background: #1555D4;
@@ -207,7 +238,7 @@ export default {
         position: absolute;
         left: 18.71%;
         right: 12.39%;
-        top: 78.95%;
+        top: 82.95%;
         bottom: 21.12%;
 
         font-family: Rubik;
@@ -228,7 +259,7 @@ export default {
         position: absolute;
         left: 45.71%;
         right: 20.39%;
-        top: 85.64%;
+        top: 83.64%;
         bottom: 12.42%;
         width: 193px;
 
