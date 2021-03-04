@@ -9,27 +9,55 @@
 
         <div class="login"> 
                 <h1 class="welcome">Welcome Back!</h1>
-                <input type="text" class="textboxA" placeholder="e-mail">
-                <input type="text" class="textboxB" placeholder="password">
-                <button class="login-btn">LOGIN</button>
+                <input type="text" class="textboxA" placeholder="e-mail" v-model="loginDetails.email">
+                <input type="text" class="textboxB" placeholder="password" v-model="loginDetails.password">
+                <button class="login-btn" @click="login">LOGIN</button>
 
-                <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
+                <p class="terms"> <router-link to="/T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
 
-                <p class="create-link"> Don’t have an account? <router-link to="signup" class="nav-link">{{"Sign Up"}}</router-link> </p>
+                <p class="create-link"> Don’t have an account? <router-link to="/signup" class="nav-link">{{"Sign Up"}}</router-link> </p>
                             
-            </div>
-            
-
-        </div>
-          
-        
+            </div>        
       </v-row>
   </v-container>
 </template>
 
 <script>
-export default {
+import * as fb from "../firebase/firebase.js"
 
+export default {
+    name: "Login",
+    data () {
+        return {
+            loginDetails: {
+                email: "",
+                password: ""
+            },
+            authFailed: false
+        }
+    },
+    methods: {
+        async login () {
+            const { email, password } = this.loginDetails
+            try {
+                const { user } = await fb.auth.signInWithEmailAndPassword(email, password)
+                console.log(user.toJSON())
+                const userProfile = await fb.users.doc(user.uid).get()
+                console.log(userProfile.exists)
+                if (userProfile.exists) {
+                    this.authFailed = false
+                    sessionStorage.setItem('auth', 'true')
+                    sessionStorage.setItem("user", JSON.stringify(userProfile.data()))
+                    this.$router.push("projects")
+                } else {
+                    this.authFailed = true
+                }
+            } catch (e) {
+                console.log("Login fail")
+                this.authFailed = true
+            }
+        }
+    }
 
 }
 </script>
