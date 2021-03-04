@@ -63,6 +63,7 @@
                                 </label>
                             </div>
                         </div>
+                        
                         <div class="field is-grouped">
                             <div class="control">
                                 <input type="submit" value="Submitted" v-bind:disabled="errors.any()" class="button is-primary">

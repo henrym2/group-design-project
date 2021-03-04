@@ -17,7 +17,6 @@
 
                 <p class="create-link"> Don’t have an account? <router-link to="signup" class="nav-link">{{"Sign Up"}}</router-link> </p>
                             
-            </div>
             
 
         </div>
