@@ -1,5 +1,4 @@
 <template>
-  <v-container >
       <v-row class="ml-2 mr-2" style="height:97vh" align="center">
           
         <div class="rect">
@@ -25,7 +24,6 @@
           
           
       </v-row>
-  </v-container>
 </template>
 
 <script>

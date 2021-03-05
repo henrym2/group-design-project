@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+//import Home from '../views/Home.vue'
 
 
 Vue.use(VueRouter)
@@ -8,8 +8,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: "userLogin",
+    component: () => import("../pages/userLogin.vue")
   },
   {
     path: '/about',
@@ -25,19 +25,14 @@ const routes = [
     component: () => import('../pages/Form.vue')
   },
   {
-    path: '/login',
-    name: "Login",
-    component: () => import("../pages/Login.vue")
-  },
-  {
     path: '/signup',
     name: "Signup",
     component: () => import("../pages/Signup.vue")
   },
   {
     path: '/T&C',
-    name: "T&C",
-    component: () => import("../pages/T&C.vue")
+    name: "terms&cond",
+    component: () => import("../pages/terms&cond.vue")
   },
   {
     path: '/projects',

@@ -1,30 +1,20 @@
 <template>
-  <v-container >
-      <v-row class="ml-2 mr-2" style="height:97vh" align="center">
-          
+    <v-row no-gutters >  
         <div class="rect">
             <h2 class="slogan">PLATFORM SLOGAN</h2>
-            <p class="description">Platform Description</p>
+            <p class="description">Connecting Clinicians and Design Engineers to bring ideas from paper to prototype</p>
         </div>
 
         <div class="login"> 
-                <h1 class="welcome">Welcome Back!</h1>
-                <input type="text" class="textboxA" placeholder="e-mail">
-                <input type="text" class="textboxB" placeholder="password">
-                <button class="login-btn">LOGIN</button>
+            <h1 class="welcome">Welcome Back!</h1>
+            <input type="text" class="textboxA" placeholder="e-mail">
+            <input type="text" class="textboxB" placeholder="password">
+            <button class="login-btn"><router-link to="projects" class="nav-link">{{"LOGIN"}}</router-link></button>
 
-                <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
-
-                <p class="create-link"> Don’t have an account? <router-link to="signup" class="nav-link">{{"Sign Up"}}</router-link> </p>
-                            
-            </div>
-            
-
-        </div>
-          
-        
+            <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
+            <p class="create-link"> Don’t have an account? <router-link to="signup" class="nav-link">{{"Sign Up"}}</router-link> </p>                        
+        </div>  
       </v-row>
-  </v-container>
 </template>
 
 <script>
@@ -73,7 +63,6 @@ export default {
         font-style: normal;
         font-weight: 50;
         font-size: 18px;
-        line-height: 45px;
 
         color: #FFFFFF;
         padding-top: 50px;
@@ -196,10 +185,14 @@ export default {
         letter-spacing: 3px;
         text-transform: capitalize;
 
-        color: #FFFFFF;
+        color: #FFFFFF !important;
 
         font-family: Rubik;
  
+    }
+
+    .login-btn a {
+        color: #FFFFFF !important;
     }
 
     .terms{
