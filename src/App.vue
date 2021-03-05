@@ -41,30 +41,21 @@
 export default {
   data () {
     return {
-      pages: [
-        { 
-          id: 0, 
-          text: "Login", 
-          path: "/login"
-        },
-        {
-          id: 1,
-          text: 'Home',
-          path: "/"
-        },
-        {
-          id: 2,
-          text: "Projects",
-          path: "/projects"
-        },
-        {
-          id: 3,
-          text: "Forms",
-          path: "/form"
-        },
-      ]
     }
   },
+  computed: {
+    pages () {
+      return this.$router.options.routes.map(route => ({
+        text: route.name, path: route.path
+      }))
+    }
+  },
+  methods: {
+    logout () {
+      sessionStorage.clear()
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
