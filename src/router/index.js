@@ -22,7 +22,10 @@ const routes = [
   {
     path: '/form',
     name: "Form",
-    component: () => import('../pages/Form.vue')
+    component: () => import('../pages/Form.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/signup',
@@ -37,12 +40,25 @@ const routes = [
   {
     path: '/projects',
     name: "Projects",
-    component: () => import("../pages/ProjectList.vue")
+    component: () => import("../pages/ProjectList.vue"),
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, _, next) => {
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+  const isAuthed = sessionStorage.getItem("auth") === "true"
+  if (requiresAuth && !isAuthed) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

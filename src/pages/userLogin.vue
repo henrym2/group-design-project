@@ -18,10 +18,43 @@
 </template>
 
 <script>
+/* import * as fb from "../firebase/firebase.js"
+
 export default {
+    name: "Login",
+    data () {
+        return {
+            loginDetails: {
+                email: "",
+                password: ""
+            },
+            authFailed: false
+        }
+    },
+    methods: {
+        async login () {
+            const { email, password } = this.loginDetails
+            try {
+                const { user } = await fb.auth.signInWithEmailAndPassword(email, password)
+                console.log(user.toJSON())
+                const userProfile = await fb.users.doc(user.uid).get()
+                console.log(userProfile.exists)
+                if (userProfile.exists) {
+                    this.authFailed = false
+                    sessionStorage.setItem('auth', 'true')
+                    sessionStorage.setItem("user", JSON.stringify(userProfile.data()))
+                    this.$router.push("projects")
+                } else {
+                    this.authFailed = true
+                }
+            } catch (e) {
+                console.log("Login fail")
+                this.authFailed = true
+            }
+        }
+    }
 
-
-}
+} */
 </script>
 
 <style>
