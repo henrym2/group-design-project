@@ -2,11 +2,11 @@
     <v-row class="ml-2 mr-2" style="height:97vh" align="center">
         <div class="column is-two-thirds">
             <section class="section">
+                <hr>
                 <h1 class="title">Project Proposal Form Submission</h1>
                 <p class="subtitle">
                     Please fill the form below as much as possible
                 </p>
-                <hr>
                 <!-- form starts here -->
                 <section class="form">
                     <form v-on:submit.prevent="$validator.validateAll(); console.log(form);">
@@ -116,10 +116,17 @@
                             <div class="control">
                                 <label class="checkbox">
                                     <input type="checkbox" v-model="form.terms">
-                                    I agree to the<p class="terms"> <router-link to="T&C" class="nav-link">{{"Privacy Policy and Terms of Service"}}</router-link> </p>
+                                    I agree to the 
+                                    
+                                    <p class="terms"> 
+                                        <router-link to="T&C" class="nav-link">
+                                            {{"Privacy Policy and Terms of Service"}}
+                                        </router-link> 
+                                    </p>
                                 </label>
                             </div>
                         </div>
+
                         <div class="field is-grouped">
                             <div class="control">
                                 <input type="submit" value="Submitted" v-bind:disabled="errors.any()" class="button is-primary">
