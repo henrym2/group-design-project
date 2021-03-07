@@ -49,6 +49,11 @@ const routes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/ProposalForm',
+    name: "Proposal Form",
+    component: () => import("../pages/ProposalForm.vue")
   }
 ]
 
