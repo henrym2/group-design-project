@@ -18,18 +18,14 @@
                 <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
 
             </div>
-            
-
         </div>
-          
-          
       </v-row>
 </template>
 
 <script>
-import * as fb from "../firebase/firebase.js"
-export default {
-    name: "SignUp",
+//import * as fb from "../firebase/firebase.js"
+//export default {
+    /*name: "SignUp",
     data () {
         return {
             signUpData: {
@@ -66,9 +62,10 @@ export default {
             return true
 
         }
-    }
-}
+    }*/
+//}
 </script>
+
 
 <style>
     .slogan{
