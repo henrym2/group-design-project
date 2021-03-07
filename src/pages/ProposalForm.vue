@@ -54,7 +54,12 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Skills needed</label>
+                            <label class="label">Skills Required</label>
+                            <v-combobox
+                                v-model="form.skills"
+                                multiple
+                                chips
+                            ></v-combobox>
                         </div>
 
                         <div class="field">
@@ -71,13 +76,13 @@
                             <label class="label">Area of Healthcare</label>
                             <div class="control">
                                 <center>
-                                <div class="select">
-                                    <select v-model="form.healthcareArea">
-                                        <option value="">Please Select</option>
-                                        <option v-for="option in options.inquiry" v-bind:value="option.value" v-bind:key="option.key">
-                                            {{ option.text }}
-                                        </option>
-                                    </select>
+                                <div>
+                                    <v-select
+                                        v-model="form.healthcareArea"
+                                        :items="options.area"
+                                        label="Please Select"
+                                        solo
+                                    ></v-select>
                                 </div>
                                 </center>
                             </div>
@@ -87,13 +92,13 @@
                             <label class="label">Project Purpose</label>
                             <div class="control">
                                 <center>
-                                <div class="select">
-                                    <select v-model="form.purpose">
-                                        <option value="">Please Select</option>
-                                        <option v-for="option in options.purposes" v-bind:value="option.value" v-bind:key="option.key">
-                                            {{ option.text }}
-                                        </option>
-                                    </select>
+                                <div>
+                                    <v-select
+                                        v-model="form.purpose"
+                                        :items="options.purposes"
+                                        label="Please Select"
+                                        solo
+                                    ></v-select>
                                 </div>
                                 </center>
                             </div>
@@ -108,7 +113,6 @@
                                 <label class="checkbox">
                                     <input type="checkbox" v-model="form.terms">
                                     I agree to the 
-                                    
                                     <p class="terms"> 
                                         <router-link to="T&C" class="nav-link">
                                             {{"Privacy Policy and Terms of Service"}}
@@ -156,8 +160,8 @@
                 email: "use this.user??",
                 title: "",
                 brief: "",
+                skills: [],
                 duration: "",
-                message: "",
                 healthcareArea: "",
                 purpose: false,
                 otherPupose: "",
@@ -165,7 +169,7 @@
                 submitted: false,
             },
             options: {
-                inquiry: [
+                area: [
                     { key: 1, value: "Allergy and immunology", text: "Allergy and immunology" },
                     { key: 2, value: "Anesthesiology", text: "Anesthesiology" },
                     { key: 3, value: "Dermatology", text: "Dermatology" },

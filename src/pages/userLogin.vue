@@ -9,7 +9,7 @@
         <div class="login"> 
             <h1 class="welcome">Welcome Back!</h1>
             <input type="text" class="textboxA" placeholder="e-mail">
-            <input type="text" class="textboxB" placeholder="password">
+            <input type="password" class="textboxB" placeholder="password">
             <button class="login-btn"><router-link to="projects" class="nav-link">{{"LOGIN"}}</router-link></button>
         <div class="terms"> 
 
