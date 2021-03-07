@@ -53,17 +53,8 @@
                             </p>
                         </div>
 
-                        Skills needed
                         <div class="field">
-                            <label class="label">Project Brief</label>
-                            <div class="control">
-                                <textarea name="brief" class="textarea" v-validate="'required|min:5'" placeholder="Description of the project" v-bind:class="{'is-danger': errors.has('brief')}" v-model="form.brief">
-                                </textarea>
-                                <input-tag placeholder="Add Tag" v-model="tags" :limit="limit"></input-tag>
-                            </div>
-                            <p class="help is-danger" v-show="errors.has('brief')">
-                                {{ errors.first('brief') }}
-                            </p>
+                            <label class="label">Skills needed</label>
                         </div>
 
                         <div class="field">
