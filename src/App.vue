@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <v-app>
       <v-app-bar absolute>
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
@@ -28,21 +29,28 @@
               </v-list-item-title>
             </v-list-item>
           </v-list>
+          
         </v-menu>
       </v-app-bar>
+      
       <v-main>
         <router-view/>
       </v-main>
     </v-app>
+    
   </div>
 </template>
 
+
+
 <script>
+
 export default {
   data () {
     return {
     }
   },
+
   computed: {
     pages () {
       return this.$router.options.routes.map(route => ({
