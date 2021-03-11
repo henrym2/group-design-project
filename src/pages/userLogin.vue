@@ -374,7 +374,7 @@ export default {
         letter-spacing: 3px;
         text-transform: capitalize;
 
-        color: #FFFFFF !important;
+        color: rgb(0, 0, 0) !important;
 
         font-family: Rubik;
  
@@ -427,44 +427,66 @@ export default {
     }
 
     .create-link1{
+
         position: absolute;
-        left: 45.71%;
-        right: 20.39%;
-        top: 87%;
-        bottom: 5%;
-        width: 193px;
+        left: 40.06%;
+        right: 15.87%;
+        top: 87.01%;
+        bottom: 32.3%;
+
+        background: rgb(26, 140, 160);
+        border-radius: 8px;
+        
+        height: 25px;
+        width: 30%;
 
         font-family: Rubik;
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
+        font-weight: 300;
+        font-size: 13.5px;
         line-height: 14px;
-        /* or 156% */
-
-       
+        align-items: center;
         text-align: center;
+        letter-spacing: 3px;
+        text-transform: capitalize;
 
-        color: #525458;
+        color: #FFFFFF !important;
+
+        font-family: Rubik;
+ 
+    }
+    .create-link1 a {
+        color: #FFFFFF !important;
     }
     .create-link2{
-        position: absolute;
-        left: 45.71%;
-        right: 20.39%;
-        top: 92%;
-        bottom: 5%;
-        width: 193px;
+         position: absolute;
+        left: 40.06%;
+        right: 15.87%;
+        top: 92.01%;
+        bottom: 32.3%;
+
+        background: rgb(26, 140, 160);
+        border-radius: 8px;
+        
+        height: 25px;
+        width: 30%;
 
         font-family: Rubik;
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
+        font-weight: 300;
+        font-size: 13.5px;
         line-height: 14px;
-        /* or 156% */
-
-       
+        align-items: center;
         text-align: center;
+        letter-spacing: 3px;
+        text-transform: capitalize;
 
-        color: #525458;
+        color: #FFFFFF !important;
+
+        font-family: Rubik;
+    }
+    .create-link2 a {
+        color: #FFFFFF !important;
     }
 
 </style>
