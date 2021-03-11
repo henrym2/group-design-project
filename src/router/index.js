@@ -14,23 +14,28 @@ const routes = [
     path: '/form',
     name: "Form",
     component: () => import('../pages/Form.vue'),
-    //meta: {
-      //requiresAuth: true
-    //}
+    meta: {
+      requiresAuth: true
+    }
   },
   {
-    path: '/signup',
-    name: "Signup",
-    component: () => import("../pages/Signup.vue")
+    path: '/clinicianSignup',
+    name: "clinicianSignup",
+    component: () => import("../pages/ClinicianSignup.vue")
+  },
+  {
+    path: '/engineerSignup',
+    name: "engineerSignup",
+    component: () => import("../pages/EngineerSignup.vue")
   },
 
   {
     path: '/projects',
     name: "Projects",
     component: () => import("../pages/ProjectList.vue"),
-    //meta: {
-      //requiresAuth: true
-    //}
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/clinician_profile',
@@ -44,7 +49,7 @@ const router = new VueRouter({
   routes
 })
 
-/*
+
 
 router.beforeEach((to, _, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
@@ -55,6 +60,6 @@ router.beforeEach((to, _, next) => {
     next()
   }
 })
-*/
+
 
 export default router

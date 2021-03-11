@@ -163,14 +163,18 @@
         
         </div>
 
-            <p class="create-link"> Don’t have an account? <router-link to="signup" class="nav-link">{{"Sign Up"}}</router-link> </p>                        
+            <p class="create-link"> Don’t have an account?</p>                        
+            <p class="create-link1">  <router-link to="clinicianSignup" class="nav-link">{{"Clinican Sign Up"}}</router-link> </p>                        
+            <p class="create-link2">  <router-link to="engineerSignup" class="nav-link">{{"Engineer Sign Up"}}</router-link> </p>                        
+        
+        
         </div>  
     </v-row>
 </template>
 
 
 <script>
-/* import * as fb from "../firebase/firebase.js"
+ import * as fb from "../firebase/firebase.js"
 
 export default {
     name: "Login",
@@ -206,7 +210,7 @@ export default {
         }
     }
 
-} */
+} 
 </script>
 
 <style>
@@ -405,8 +409,49 @@ export default {
         position: absolute;
         left: 45.71%;
         right: 20.39%;
-        top: 85.64%;
+        top: 82%;
         bottom: 12.42%;
+        width: 193px;
+
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        /* or 156% */
+
+       
+        text-align: center;
+
+        color: #525458;
+    }
+
+    .create-link1{
+        position: absolute;
+        left: 45.71%;
+        right: 20.39%;
+        top: 87%;
+        bottom: 5%;
+        width: 193px;
+
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        /* or 156% */
+
+       
+        text-align: center;
+
+        color: #525458;
+    }
+    .create-link2{
+        position: absolute;
+        left: 45.71%;
+        right: 20.39%;
+        top: 92%;
+        bottom: 5%;
         width: 193px;
 
         font-family: Rubik;
