@@ -8,7 +8,7 @@
 
         <div class="login"> 
             <div class="content">
-                <h1 class="welcome">Sign up!</h1>
+                <h1 class="welcome">Clinician Sign up!</h1>
                 <input type="text" class="textboxA" placeholder="e-mail" v-model="signUpData.email">
                 <input type="text" class="textboxB" placeholder="password" v-model="signUpData.password">
                 <input type="text" class="textboxC" placeholder="repeat password" v-model="signUpData.repeatPass">
@@ -23,9 +23,9 @@
 </template>
 
 <script>
-//import * as fb from "../firebase/firebase.js"
-//export default {
-    /*name: "SignUp",
+import * as fb from "../firebase/firebase.js"
+export default {
+    name: "SignUp",
     data () {
         return {
             signUpData: {
@@ -62,8 +62,8 @@
             return true
 
         }
-    }*/
-//}
+    }
+}
 </script>
 
 

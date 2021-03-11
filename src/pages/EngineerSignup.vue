@@ -1,5 +1,4 @@
 <template>
-  <v-container >
       <v-row class="ml-2 mr-2" style="height:97vh" align="center">
           
         <div class="rect">
@@ -8,72 +7,79 @@
         </div>
 
         <div class="login"> 
-                <h1 class="welcome">Welcome Back!</h1>
-                <input type="text" class="textboxA" placeholder="e-mail" v-model="loginDetails.email">
-                <input type="text" class="textboxB" placeholder="password" v-model="loginDetails.password">
-                <button class="login-btn" @click="login"><router-link to="/projects" class="nav-link">LOGIN</router-link></button>
+            <div class="content">
+                <h1 class="welcome">Engineer Sign up!</h1>
+                <input type="text" class="textboxD" placeholder="Full Name" v-model="signUpData.name">
+                <input type="text" class="textboxA" placeholder="E-mail Address" v-model="signUpData.email">
+                <input type="text" class="textboxB" placeholder="Password" v-model="signUpData.password">
+                <input type="text" class="textboxC" placeholder="Repeat Password" v-model="signUpData.repeatPass">
+                <input type="text" class="textboxE" placeholder="Engineer Ireland Number" v-model="signUpData.engineernumber">
+                <button class="login-btn" @click="signUp">SIGN UP</button>
 
-                <p class="terms"> <router-link to="/T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
+                <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
 
-                <p class="create-link"> Don’t have an account? </p>
-                <p class="text"> <router-link to="/signup" class="nav-link">{{"Clinican Sign up"}}</router-link> </p>
-                <p class="create-link"> <router-link to="/signup" class="nav-link">{{"Engineer Sign up"}}</router-link> </p>
-            </div>        
+            </div>
+        </div>
       </v-row>
-  </v-container>
 </template>
 
 <script>
 import * as fb from "../firebase/firebase.js"
-
 export default {
-    name: "Login",
+    name: "SignUp",
     data () {
         return {
-            loginDetails: {
+            signUpData: {
+                name: "",
                 email: "",
-                password: ""
-            },
-            authFailed: false
+                password: "",
+                repeatPass: "",
+                engineernumber: ""
+            }
         }
     },
     methods: {
-        async login () {
-            const { email, password } = this.loginDetails
-            try {
-                const { user } = await fb.auth.signInWithEmailAndPassword(email, password)
-                console.log(user.toJSON())
-                const userProfile = await fb.users.doc(user.uid).get()
-                console.log(userProfile.exists)
-                if (userProfile.exists) {
-                    this.authFailed = false
-                    sessionStorage.setItem('auth', 'true')
-                    sessionStorage.setItem("user", JSON.stringify(userProfile.data()))
-                    this.$router.push("projects")
-                } else {
-                    this.authFailed = true
-                }
-            } catch (e) {
-                console.log("Login fail")
-                this.authFailed = true
+        async signUp () {
+            const { email, password, name } = this.signUpData
+            //Fail early if fields are empty somehow
+            if (!this.validateLogin(this.signUpData)) {
+                return 
             }
+            try {
+                const { user } = await fb.auth.createUserWithEmailAndPassword(email, password)
+                await fb.users.doc(user.uid).set({email, name})
+                sessionStorage.setItem("auth", 'true')
+                await this.$router.push("projects")
+            } catch (e) {
+                console.log("Signup fail")
+            }
+        },
+        validateLogin(signUpData) {
+            const { email, password, repeatPass, name } = signUpData
+            if (email === "" || password === "" || name === "" || repeatPass === "") {
+                return false
+            } else if (password !== repeatPass) {
+                return false
+            }
+            return true
+
         }
     }
-
 }
 </script>
+
 
 <style>
     .slogan{
         position: absolute;
-        left: 10.77%;
+        left: 20.77%;
         right: 70.32%;
         top: 46.38%;
         bottom: 50.31%;
 
         height: 16px;
         width: 50%;
-        text-align: left;
+        text-align: center;
 
         font-family: Rubik;
         font-style: normal;
@@ -82,21 +88,21 @@ export default {
         line-height: 45px;
         text-transform: uppercase;
 
-        padding-bottom: 50px;
+        padding: 15px;
 
         color: #FFFFFF;
     }
 
     .description{
         position: absolute;
-        left: 10.77%;
+        left: 20.77%;
         right: 70.32%;
         top: 52.38%;
         bottom: 50.31%;
 
         height: 16px;
         width: 50%;
-        text-align: left;
+        text-align: center;
 
         font-family: Rubik;
         font-style: normal;
@@ -105,7 +111,7 @@ export default {
         line-height: 45px;
 
         color: #FFFFFF;
-        padding-top: 50px;
+        padding: 20px;
     }
 
     .rect{
@@ -114,12 +120,16 @@ export default {
         right: 65.68%;
         top: 0%;
         bottom: 0%;
-        height: 100vh;
 
         background: #0C162B;
     }
 
-   
+    .content{
+        height: 329px;
+        width: 264px;
+        left: 382px;
+        top: 88px;
+    }
 
     .login{
         position: absolute;
@@ -127,10 +137,6 @@ export default {
         right: 0%;
         top: 0%;
         bottom: 0%;
-
-        height: 100vh;
-        margin: 0px; 
-        padding: 0px;
 
         background: #FFFFFF;
     }
@@ -186,6 +192,55 @@ export default {
 
         padding: 10px;
     }
+    .textboxC{
+        height: 55px;
+        width: 50%;
+       
+        border-radius: 8px;
+
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 65.37%;
+        bottom: 56.94%;
+
+        background: #EEF1F5;
+
+        padding: 10px;
+    }
+        .textboxD{
+        height: 55px;
+        width: 50%;
+       
+        border-radius: 8px;
+
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 35.37%;
+        bottom: 56.94%;
+
+        background: #EEF1F5;
+
+        padding: 10px;
+    }
+
+    .textboxE{
+        height: 55px;
+        width: 50%;
+       
+        border-radius: 8px;
+
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 75.37%;
+        bottom: 56.94%;
+
+        background: #EEF1F5;
+
+        padding: 10px;
+    }
 
     ::placeholder{
         font-family: Rubik;
@@ -206,7 +261,7 @@ export default {
         position: absolute;
         left: 28.06%;
         right: 15.87%;
-        top: 70.01%;
+        top: 85.01%;
         bottom: 32.3%;
 
         background: #1555D4;
@@ -235,7 +290,7 @@ export default {
         position: absolute;
         left: 18.71%;
         right: 12.39%;
-        top: 78.95%;
+        top: 92.95%;
         bottom: 21.12%;
 
         font-family: Rubik;
@@ -256,7 +311,7 @@ export default {
         position: absolute;
         left: 45.71%;
         right: 20.39%;
-        top: 85.64%;
+        top: 83.64%;
         bottom: 12.42%;
         width: 193px;
 
