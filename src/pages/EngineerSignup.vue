@@ -9,10 +9,11 @@
         <div class="login"> 
             <div class="content">
                 <h1 class="welcome">Engineer Sign up!</h1>
-                <input type="text" class="textboxA" placeholder="e-mail" v-model="signUpData.email">
-                <input type="text" class="textboxB" placeholder="password" v-model="signUpData.password">
-                <input type="text" class="textboxC" placeholder="repeat password" v-model="signUpData.repeatPass">
-                <input type="text" class="textboxD" placeholder="full name" v-model="signUpData.name">
+                <input type="text" class="textboxD" placeholder="Full Name" v-model="signUpData.name">
+                <input type="text" class="textboxA" placeholder="E-mail Address" v-model="signUpData.email">
+                <input type="text" class="textboxB" placeholder="Password" v-model="signUpData.password">
+                <input type="text" class="textboxC" placeholder="Repeat Password" v-model="signUpData.repeatPass">
+                <input type="text" class="textboxE" placeholder="Engineer Ireland Number" v-model="signUpData.engineernumber">
                 <button class="login-btn" @click="signUp">SIGN UP</button>
 
                 <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
@@ -29,10 +30,11 @@ export default {
     data () {
         return {
             signUpData: {
+                name: "",
                 email: "",
                 password: "",
                 repeatPass: "",
-                name: ""
+                engineernumber: ""
             }
         }
     },
@@ -223,6 +225,23 @@ export default {
         padding: 10px;
     }
 
+    .textboxE{
+        height: 55px;
+        width: 50%;
+       
+        border-radius: 8px;
+
+        position: absolute;
+        left: 28.06%;
+        right: 15.87%;
+        top: 75.37%;
+        bottom: 56.94%;
+
+        background: #EEF1F5;
+
+        padding: 10px;
+    }
+
     ::placeholder{
         font-family: Rubik;
         font-style: normal;
@@ -242,7 +261,7 @@ export default {
         position: absolute;
         left: 28.06%;
         right: 15.87%;
-        top: 75.01%;
+        top: 85.01%;
         bottom: 32.3%;
 
         background: #1555D4;
@@ -271,7 +290,7 @@ export default {
         position: absolute;
         left: 18.71%;
         right: 12.39%;
-        top: 82.95%;
+        top: 92.95%;
         bottom: 21.12%;
 
         font-family: Rubik;
