@@ -10,27 +10,7 @@
                 <!-- form starts here -->
                 <section class="form">
                     <form v-on:submit.prevent="$validator.validateAll(); console.log(form);">
-                        <!-- should not neet to input name & email
-                        <div class="field">
-                            <label class="label">Name</label>
-                            <div class="control">
-                                <input name="name" v-model="form.name" v-validate="'required|min:3'" v-bind:class="{'is-danger': errors.has('name')}" class="input" type="text" placeholder="Full name">
-                            </div>
-                            <p class="help is-danger" v-show="errors.has('name')">
-                                {{ errors.first('name') }}
-                            </p>
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control">
-                                <input name="email" v-model="form.email" v-validate="'required|min:3'" v-bind:class="{'is-danger': errors.has('email')}" class="input" type="text" placeholder="Email Address">
-                            </div>
-                            <p class="help is-danger" v-show="errors.has('email')">
-                                {{ errors.first('email') }}
-                            </p>
-                        </div>
-                        -->
+                        <!-- should not neet to input name & email -->
 
                         <div class="field">
                             <label class="label">Project Title</label>
