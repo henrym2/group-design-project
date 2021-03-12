@@ -164,8 +164,8 @@
         </div>
 
             <p class="create-link"> Don’t have an account?</p>                        
-            <p class="create-link1">  <router-link to="clinicianSignup" class="nav-link">{{"Clinican Sign Up"}}</router-link> </p>                        
-            <p class="create-link2">  <router-link to="engineerSignup" class="nav-link">{{"Engineer Sign Up"}}</router-link> </p>                        
+            <button class="create-link1">  <router-link to="clinicianSignup" class="nav-link">{{"Clinican Sign Up"}}</router-link> </button>                        
+            <button class="create-link2">  <router-link to="engineerSignup" class="nav-link">{{"Engineer Sign Up"}}</router-link> </button>                        
         
         
         </div>  
