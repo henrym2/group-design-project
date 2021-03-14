@@ -28,7 +28,6 @@ const routes = [
     name: "engineerSignup",
     component: () => import("../pages/EngineerSignup.vue")
   },
-
   {
     path: '/projects',
     name: "Projects",
@@ -40,12 +39,18 @@ const routes = [
   {
     path: '/clinician_profile',
     name: "Clinician Profile",
-    component: () => import("../pages/clinicianProfile.vue")
+    component: () => import("../pages/clinicianProfile.vue"),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/engineer_profile',
     name: "Engineer Profile",
-    component: () => import("../pages/engineerProfile.vue")
+    component: () => import("../pages/engineerProfile.vue"),
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 

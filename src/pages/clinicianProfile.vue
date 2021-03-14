@@ -1,14 +1,63 @@
 <template>
     <v-container>
         <v-row>
-            Clinican profile page stub
-        
+            <v-card width="83rem" height="85vh" class="mt-3">
+                <v-toolbar
+                    class="toolbar-color"
+                    dark
+                    flat
+                >
+
+                    <v-toolbar-title>Your Profile</v-toolbar-title>
+
+                    <v-spacer></v-spacer>
+                </v-toolbar>
+                <v-tabs
+                    vertical
+                    >
+                        <v-tabs-slider color="yellow"></v-tabs-slider>
+                        <v-tab>
+                            User Details
+                        </v-tab>
+                        <v-tab>
+                            Your Projects
+                        </v-tab>
+                    <v-tab-item>
+                        <v-card flat>
+                            <v-card-title>Details</v-card-title>
+                            <v-card-text>
+                                <v-text-field label="Email"></v-text-field>
+                                <v-text-field label="Username"></v-text-field>
+                                <v-text-field label="Password"></v-text-field>
+                                <v-textarea label="About Me" clearable counter no-resize></v-textarea>
+
+                            </v-card-text>
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-card flat>
+                            <v-card-title>User Projects</v-card-title>
+                            <v-card-text>Hallo 2</v-card-text>
+                        </v-card>
+                    </v-tab-item>
+                    </v-tabs>
+
+            </v-card>
         </v-row>
     </v-container>
 </template>
 
 <script>
 export default {
+    data () {
+        return {
+            tabs: [
+                "Page 1",
+                "Page 2"
+            ],
+            tabbed: ""
+        }
+    },
     computed: {
         userData() {
             return JSON.parse(sessionStorage.getItem('user'))
@@ -17,7 +66,13 @@ export default {
 }
 </script>
 
-<style>
-    
+<style scoped>
+    .toolbar-color {
+      background-color: #0C162B !important;
+    }
+
+    .card-grey {
+        background-color: rgb(209, 209, 209);
+    }
 
 </style>
