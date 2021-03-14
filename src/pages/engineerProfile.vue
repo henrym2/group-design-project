@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row>
-            Clinican profile page stub
+            Engineer profile page stub
         
         </v-row>
     </v-container>

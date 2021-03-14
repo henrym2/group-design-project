@@ -41,6 +41,11 @@ const routes = [
     path: '/clinician_profile',
     name: "Clinician Profile",
     component: () => import("../pages/clinicianProfile.vue")
+  },
+  {
+    path: '/engineer_profile',
+    name: "Engineer Profile",
+    component: () => import("../pages/engineerProfile.vue")
   }
 ]
 
@@ -50,12 +55,30 @@ const router = new VueRouter({
 })
 
 
-
+/**
+ * Simple auth router middleware, checks to ensure that the current session is authenticated
+ */
 router.beforeEach((to, _, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const isAuthed = sessionStorage.getItem("auth") === "true"
   if (requiresAuth && !isAuthed) {
     next('/login')
+  } else {
+    next()
+  }
+})
+
+/**
+ * Router middleware for deciding routing based on if a user is a clinician or engineer
+ */
+router.beforeEach((to, _, next) => {
+  if (to.path == "/profile") {
+    const userData = JSON.parse(sessionStorage.getItem("user"))
+    if (userData.role == "engineer") {
+      next("/engineer_profile")
+    } else if (userData.role == "clinician") {
+      next('/clinician_profile')
+    }
   } else {
     next()
   }
