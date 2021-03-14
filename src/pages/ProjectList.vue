@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row justify="center">
+        <v-row justify="center" class="mt-10">
             <v-spacer></v-spacer>
             <v-col class="ml-auto">
                 <v-toolbar floating class="mt-5" style="z-index:5">
