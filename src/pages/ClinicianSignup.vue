@@ -45,7 +45,9 @@ export default {
             }
             try {
                 const { user } = await fb.auth.createUserWithEmailAndPassword(email, password)
-                await fb.users.doc(user.uid).set({email, name})
+                await fb.users.doc(user.uid).set({email, name, role: "clinician"})
+                const userProfile = await fb.users.doc(user.uid).get()
+                sessionStorage.set('user', JSON.stringify(userProfile.data()))
                 sessionStorage.setItem("auth", 'true')
                 await this.$router.push("projects")
             } catch (e) {

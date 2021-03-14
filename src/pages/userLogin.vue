@@ -7,15 +7,13 @@
         </div>
         <div class="login"> 
             <h1 class="welcome">Welcome Back!</h1>
-            <input type="text" class="textboxA" placeholder="e-mail">
-            <input type="text" class="textboxB" placeholder="password">
+            <input type="text" v-model="loginDetails.email" class="textboxA" placeholder="e-mail">
+            <input type="password" v-model="loginDetails.password" class="textboxB" placeholder="password">
             <tand-c></tand-c>
-            <button class="login-btn"><router-link to="projects" class="nav-link">{{"LOGIN"}}</router-link></button>
+            <button class="login-btn" @click="login"><router-link to="projects" class="nav-link">{{"LOGIN"}}</router-link></button>
             <p class="create-link"> Don’t have an account?</p>                        
             <button class="create-link1">  <router-link to="clinicianSignup" class="nav-link">{{"Clinican Sign Up"}}</router-link> </button>                        
             <button class="create-link2">  <router-link to="engineerSignup" class="nav-link">{{"Engineer Sign Up"}}</router-link> </button>                        
-        
-        
         </div>  
     </v-row>
 </template>
