@@ -5,9 +5,9 @@
     <v-app>
       <v-app-bar absolute class="bar">
 
-        <v-title>
+        <v-toolbar-title>
           <router-link to="/" class="nav-link">Log Out</router-link>
-        </v-title>
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
 
