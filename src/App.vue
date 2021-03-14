@@ -1,35 +1,35 @@
 <!-- src/components/AppNav.vue -->
 <template>
-  <div id="app">
-
-    <v-app>
-      <v-app-bar absolute class="bar">
+    <v-app id="app">
+      <v-app-bar class="bar" app>
 
         <v-toolbar-title>
-          <router-link to="/" class="nav-link">Log Out</router-link>
+          <router-link to="/" class="nav-link" @click="logout">Log Out</router-link>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
-
-        <router-link to="/projects" class="nav-link">Home</router-link>
-        <router-link to="/clinician_profile" class="nav-link">My Profile</router-link>
-        <router-link to="/" class="nav-link">Messages</router-link>
-        <router-link to="/" class="nav-link">Projects</router-link>
-        
-
-        
+          <v-toolbar-items>
+          <router-link to="/projects" class="nav-link">Home</router-link>
+          <router-link to="/profile" class="nav-link">My Profile</router-link>
+          <router-link to="/" class="nav-link">Messages</router-link>
+          <router-link to="/" class="nav-link">Projects</router-link>        
+        </v-toolbar-items>
       </v-app-bar>
       
       <v-main>
         <router-view/>
       </v-main>
     </v-app>
-    
-  </div>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    logout () {
+      sessionStorage.clear()
+    }
+  }
+}
 </script>
 
 <style scoped>

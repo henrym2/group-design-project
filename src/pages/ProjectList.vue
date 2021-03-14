@@ -1,11 +1,11 @@
 <template>
     <v-container>
-        <v-row justify="center" class="mt-10">
+        <v-row justify="center" class="mt-1">
             <v-spacer></v-spacer>
             <v-col class="ml-auto">
-                <v-toolbar floating class="mt-5" style="z-index:5">
-                    <v-text-field class="mt-5" prepend-icon="mdi-magnify" single-line label="Search"></v-text-field>
-                    <v-select class="ml-15 mt-3" multiple chips attach :items="tags" v-model="selectedTags" label="Tags"></v-select>
+                <v-toolbar floating style="z-index:5" width="45rem">
+                    <v-text-field class="mt-5 mr-16" prepend-icon="mdi-magnify" single-line label="Search"></v-text-field>
+                    <v-select class="mt-3 ml-16" multiple chips :items="tags" v-model="selectedTags" label="Tags"></v-select>
                     <v-btn class="ml-2">Search</v-btn>
                 </v-toolbar>
             </v-col>
