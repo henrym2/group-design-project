@@ -11,7 +11,7 @@
             </v-col>
             <v-spacer></v-spacer>
         </v-row>
-        <v-row>
+        <v-row class="overflow-auto" style="height:82vh">
             <v-spacer></v-spacer>
             <v-col
                 cols="2"    
