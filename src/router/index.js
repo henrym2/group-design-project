@@ -51,6 +51,14 @@ const routes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/findEngineer',
+    name: "Find an engineer",
+    component: () => import("../pages/findEngineer.vue"),
+    // meta: {
+    //   requiresAuth: true
+    // }
   }
 ]
 
