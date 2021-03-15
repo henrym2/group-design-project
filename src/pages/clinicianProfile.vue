@@ -7,9 +7,7 @@
                     dark
                     flat
                 >
-
                     <v-toolbar-title>Your Profile</v-toolbar-title>
-
                     <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-tabs
@@ -30,7 +28,8 @@
                                 <v-text-field label="Username"></v-text-field>
                                 <v-text-field label="Password"></v-text-field>
                                 <v-textarea label="About Me" clearable counter no-resize></v-textarea>
-
+                                <v-spacer></v-spacer>
+                                <v-btn color="success" @click="saveDetails">Save</v-btn>
                             </v-card-text>
                         </v-card>
                     </v-tab-item>
@@ -40,6 +39,9 @@
                             <v-card-text>
                                 <Projects :projects="clinProjects"></Projects>
                             </v-card-text>
+                            <v-card-actions>
+                                <v-btn color="success" class="ml-auto">Add</v-btn>
+                            </v-card-actions>
                         </v-card>
                     </v-tab-item>
                     </v-tabs>
@@ -99,6 +101,11 @@ export default {
     computed: {
         userData() {
             return JSON.parse(sessionStorage.getItem('user'))
+        },
+    },
+    methods: {
+        saveData () {
+            return true
         }
     }
 }
