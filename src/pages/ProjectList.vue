@@ -11,7 +11,7 @@
             </v-col>
             <v-spacer></v-spacer>
         </v-row>
-        <v-row class="overflow-auto" style="height:82vh">
+        <v-row style="height:75vh">
             <v-spacer></v-spacer>
             <v-col
                 cols="2"    
@@ -82,6 +82,8 @@
             </v-col>      
             <v-col
                 cols="8"
+                class="overflow-auto"
+                style="height:75vh"
             >
                 <v-card style="height:20rem" class="mb-5" v-for="x in [1,2,3,4,5]" :key="x">
                     <v-card-title>

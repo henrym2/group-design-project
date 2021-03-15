@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col class="overflow-auto" style="height:70vh">
+        <v-col class="overflow-auto" style="height:62vh">
         <v-card 
             v-for="project in projects" 
             :key="project.id"
