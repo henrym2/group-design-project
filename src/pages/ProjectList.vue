@@ -123,6 +123,8 @@
 </template>
 
 <script>
+import {db} from "../firebase/firebase.js"
+
 export default {
     name: "ProjectList",
     data () {
@@ -132,11 +134,26 @@ export default {
                 "test2",
                 "test3"
             ],
-            selectedTags: []
+            selectedTags: [],
+            projects: []
         }
     },
+    mounted: function() {
+        this.getProjects()
+    },
     methods: {
-
+        async getProjects() {
+            try {
+                const proj = db.collection('projects')
+                const allProj = await proj.get()
+                allProj.forEach(e => {
+                    this.projects.push(e.data())
+                })
+            } catch (err) {
+                console.log(err)
+            }
+            
+        }
     }
 }
 </script>

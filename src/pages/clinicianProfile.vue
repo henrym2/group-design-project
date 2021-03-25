@@ -24,10 +24,10 @@
                         <v-card flat>
                             <v-card-title>Details</v-card-title>
                             <v-card-text>
-                                <v-text-field label="Email"></v-text-field>
-                                <v-text-field label="Username"></v-text-field>
-                                <v-text-field label="Password"></v-text-field>
-                                <v-textarea label="About Me" clearable counter no-resize></v-textarea>
+                                <v-text-field label="Email" v-model="userData.email"></v-text-field>
+                                <v-text-field label="Username" v-model="userData.name"></v-text-field>
+                                <v-text-field label="Password" v-model="userData.password"></v-text-field>
+                                <v-textarea label="About Me" v-model="userData.about" clearable counter no-resize></v-textarea>
                                 <v-spacer></v-spacer>
                                 <v-btn color="success" @click="saveDetails">Save</v-btn>
                             </v-card-text>
@@ -40,7 +40,30 @@
                                 <Projects :projects="clinProjects"></Projects>
                             </v-card-text>
                             <v-card-actions>
-                                <v-btn color="success" class="ml-auto">Add</v-btn>
+                                <v-dialog  width="73vw" persistent v-model="dialog">
+                                    <template v-slot:activator="{on, attrs}">
+                                        <v-btn color="success" class="ml-auto" v-on="on" v-bind="attrs">Add</v-btn>
+                                    </template>
+                                    <v-card>
+                                        <v-card-title class="headline">
+                                            Add a new project
+                                        </v-card-title>
+                                        <v-divider></v-divider>
+                                        <v-card-text>
+                                            <v-text-field label="Title" v-model="newTitle"></v-text-field>
+                                            <v-textarea label="Description" counter no-resize v-model="newDescription"></v-textarea>
+                                            <v-chip-group v-if="newTags.length != 0">
+                                                <v-chip v-for="tag in newTags" :key="tag" close @click:close="removeTag(tag)">{{tag}}</v-chip>
+                                            </v-chip-group>
+                                            <v-text-field label="Add a new Tag" append-icon="mdi-plus" @click:append="addTag" @keydown.enter="addTag" v-model="newTag"></v-text-field>
+                                        </v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn color="success" @click="saveNew">Save</v-btn>
+                                            <v-btn color="error" @click="closeNew">Close</v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
                             </v-card-actions>
                         </v-card>
                     </v-tab-item>
@@ -52,6 +75,7 @@
 
 <script>
 import Projects from "../components/clinicianProjects.vue"
+import { db } from "../firebase/firebase.js"
 
 export default {
     data () {
@@ -92,20 +116,84 @@ export default {
                     description: "Test",
                     tags: [ "test" ]
                 }
-            ]
+            ],
+            newTag: "",
+            newTags: [],
+            newTitle: "",
+            newDescription: "",
+            dialog: false,
+            userData: JSON.parse(sessionStorage.getItem('user'))
         }
     },
     components: {
         Projects
     },
     computed: {
-        userData() {
-            return JSON.parse(sessionStorage.getItem('user'))
-        },
     },
     methods: {
         saveData () {
             return true
+        },
+        addTag() {
+            this.newTags.push(this.newTag)
+            this.newTag = ""
+        },
+        removeTag(tag) {
+            console.log(tag)
+            this.newTags = this.newTags.filter(e => e !== tag)
+        },
+        clearInput() {
+            this.newTags = []
+            this.newTag = ""
+            this.newTitle = ""
+            this.newDescription = ""
+        },
+        closeNew() {
+            console.log("Test")
+            this.clearInput()
+            this.dialog = false
+        },
+        async saveNew() {
+            ///Save Stuff
+            try {
+                const userID = sessionStorage.getItem("userid")
+                const userRef = db.collection("users")
+                const user = await userRef.doc(userID).get()
+                const userProjects = user.data()['projects']
+                userProjects.push({
+                    title: this.newTitle,
+                    description: this.newDescription,
+                    tags: this.newTags
+                })
+                await userRef.doc(userID).set({projects: userProjects}, {merge: true})
+
+                const projects = db.collection('projects')
+                await projects.add({
+                    userID,
+                    email: this.userData.email,
+                    username: this.userData.name,
+                    title: this.newTitle,
+                    description: this.newDescription,
+                    tags: this.newTags
+                })
+
+                this.clearInput()
+                this.dialog = false
+            } catch (err) {
+                console.log(err)
+            }
+
+        },
+        async saveDetails() {
+            try {
+                const userID = sessionStorage.getItem('userid')
+                const userRef = db.collection("users")
+                const user = await userRef.doc(userID).get(); 
+                const newUser = {...user.data(), ...this.userData}
+                await userRef.doc(userID).set({newUser}, {merge: true})
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 }
