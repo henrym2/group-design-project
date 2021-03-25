@@ -13,10 +13,11 @@
                 <input type="text" class="textboxB" placeholder="password" v-model="signUpData.password">
                 <input type="text" class="textboxC" placeholder="repeat password" v-model="signUpData.repeatPass">
                 <input type="text" class="textboxD" placeholder="full name" v-model="signUpData.name">
-                <button class="login-btn" @click="signUp">SIGN UP</button>
+                <button class="login-btn" @click="signUp"><router-link to="/" class="nav-link">{{"Sign Up"}}</router-link></button>
+
 
                 <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
-
+                
             </div>
         </div>
       </v-row>
