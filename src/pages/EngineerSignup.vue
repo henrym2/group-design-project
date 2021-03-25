@@ -14,7 +14,7 @@
                 <input type="text" class="textboxB" placeholder="Password" v-model="signUpData.password">
                 <input type="text" class="textboxC" placeholder="Repeat Password" v-model="signUpData.repeatPass">
                 <input type="text" class="textboxE" placeholder="Engineer Ireland Number" v-model="signUpData.engineernumber">
-                <button class="login-btn" @click="signUp"><router-link to="/" class="nav-link">{{"Sign Up"}}</router-link></button>
+                <button class="login-btn" @click="signUp"><router-link to="/" class="nav-link">{{"SIGN UP"}}</router-link></button>
 
 
                 <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>

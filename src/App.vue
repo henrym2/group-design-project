@@ -10,9 +10,10 @@
         <v-spacer></v-spacer>
           <v-toolbar-items>
           <router-link to="/projects" class="nav-link">Home</router-link>
+          <router-link to="/form" class="nav-link">Submit Project</router-link>
           <router-link to="/profile" class="nav-link">My Profile</router-link>
           <router-link to="/" class="nav-link">Messages</router-link>
-          <router-link to="/" class="nav-link">Projects</router-link>
+          <router-link to="/projects" class="nav-link">Projects</router-link>
           <router-link to="/findEngineer" class="nav-link">Find an Engineer</router-link>    
         </v-toolbar-items>
       </v-app-bar>
