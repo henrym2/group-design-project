@@ -6,7 +6,7 @@
             :key="project.id"
             class="mt-3"
         >
-            <v-card-title>{{project.name}}</v-card-title>
+            <v-card-title>{{project.title}}</v-card-title>
             <v-card-text>{{project.description}}</v-card-text>
             <v-card-actions>
                 <v-chip-group>
@@ -16,6 +16,10 @@
                         :key="tag"
                     >{{tag}}</v-chip>
                 </v-chip-group>
+            </v-card-actions>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="red" @click="deleteProject(project)">Delete</v-btn>    
             </v-card-actions>
         </v-card>
         </v-col>
@@ -38,6 +42,11 @@
              *  ]
              */
             projects: Array
+        },
+        methods: {
+            deleteProject (project) {
+                this.$emit("delete", project)
+            }
         }
     }
 </script>

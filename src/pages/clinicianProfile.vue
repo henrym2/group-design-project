@@ -26,7 +26,6 @@
                             <v-card-text>
                                 <v-text-field label="Email" v-model="userData.email"></v-text-field>
                                 <v-text-field label="Username" v-model="userData.name"></v-text-field>
-                                <v-text-field label="Password" v-model="userData.password"></v-text-field>
                                 <v-textarea label="About Me" v-model="userData.about" clearable counter no-resize></v-textarea>
                                 <v-spacer></v-spacer>
                                 <v-btn color="success" @click="saveDetails">Save</v-btn>
@@ -37,7 +36,7 @@
                         <v-card flat>
                             <v-card-title>User Projects</v-card-title>
                             <v-card-text>
-                                <Projects :projects="clinProjects"></Projects>
+                                <Projects :projects="userData.projects" @delete="deleteProject"></Projects>
                             </v-card-text>
                             <v-card-actions>
                                 <v-dialog  width="73vw" persistent v-model="dialog">
@@ -130,9 +129,13 @@ export default {
     },
     computed: {
     },
+    mounted: function(){
+        this.getData()
+    },
     methods: {
-        saveData () {
-            return true
+        async getData() {
+            this.userData = (await db.collection('users').doc(sessionStorage.getItem('userid')).get()).data()
+            sessionStorage.setItem("user", JSON.stringify(this.userData))
         },
         addTag() {
             this.newTags.push(this.newTag)
@@ -160,15 +163,9 @@ export default {
                 const userRef = db.collection("users")
                 const user = await userRef.doc(userID).get()
                 const userProjects = user.data()['projects']
-                userProjects.push({
-                    title: this.newTitle,
-                    description: this.newDescription,
-                    tags: this.newTags
-                })
-                await userRef.doc(userID).set({projects: userProjects}, {merge: true})
-
                 const projects = db.collection('projects')
-                await projects.add({
+
+                const newProject = await projects.add({
                     userID,
                     email: this.userData.email,
                     username: this.userData.name,
@@ -177,6 +174,18 @@ export default {
                     tags: this.newTags
                 })
 
+                userProjects.push({
+                    id: newProject.id,
+                    title: this.newTitle,
+                    description: this.newDescription,
+                    tags: this.newTags
+                })
+                await userRef.doc(userID).set({projects: userProjects}, {merge: true})
+
+                
+                const userUpdated = await userRef.doc(userID).get()
+                this.userData = userUpdated.data()
+                sessionStorage.setItem('user', JSON.stringify(userUpdated.data()))
                 this.clearInput()
                 this.dialog = false
             } catch (err) {
@@ -184,13 +193,23 @@ export default {
             }
 
         },
+        async deleteProject(project) {
+            try {
+                await db.collection('projects').doc(project.id).delete()
+                this.userData.projects = this.userData.projects.filter(e => e.id !== project.id)
+                await db.collection('users').doc(sessionStorage.getItem('userid')).set({projects: this.userData.projects}, {merge: true})
+            } catch (err) {
+                console.log(err)
+            }
+        },
         async saveDetails() {
             try {
                 const userID = sessionStorage.getItem('userid')
                 const userRef = db.collection("users")
                 const user = await userRef.doc(userID).get(); 
-                const newUser = {...user.data(), ...this.userData}
-                await userRef.doc(userID).set({newUser}, {merge: true})
+                
+                const newUser = Object.assign(user.data(), this.userData)
+                await userRef.doc(userID).set({...newUser}, {merge: true})
             } catch (err) {
                 console.log(err)
             }

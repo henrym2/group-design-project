@@ -34,24 +34,22 @@
                 class="overflow-auto"
                 style="height:75vh"
             >
-                <v-card class="mb-5" v-for="x in [1,2,3,4,5]" :key="x">
+                <v-card class="mb-5" v-for="engineer in engineers" :key="JSON.stringify(engineer)">
                     <v-card-title>
-                        <h4 class="text-h6"><a class="black--text">Username</a></h4>
+                        <h4 class="text-h6"><a class="black--text">{{engineer.name}}</a></h4>
                     </v-card-title>
                     <v-card-text>
                         <v-row>
                             <v-col cols="3">
                                 <v-avatar size="6.4em" color="blue" class="mb-3">
-                                    <span class="white--text headline">TS</span>
+                                    <span class="white--text headline">{{engineer.name[0]}}</span>
                                 </v-avatar>
                                 <v-spacer></v-spacer>
-                                <a>Contact@details.com</a>
+                                <a>{{engineer.email}}</a>
                             </v-col>
                             <v-col cols="9">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus nisl elit, ut bibendum erat rutrum non. 
-                            Cras tincidunt rhoncus quam, quis rhoncus sem bibendum quis. Phasellus at elit dui. Sed ac ex vel ex gravida pretium. 
-                            Pellentesque quis sapien sed nisl elementum iaculis nec in turpis. Maecenas dictum cursus elit, et fringilla nibh condimentum vel. 
-                            Nunc at nibh pretium, ultricies justo eu, convallis elit. Vestibulum vestibulum, lacus vitae suscipit blandit,
+                            <p>
+                                {{engineer.about}}
                             </p>
                             
                             </v-col>
@@ -95,7 +93,10 @@ export default {
     methods: {
         async getAll () {
             const userRef = db.collection("users")
-            this.engineers = await userRef.where('role', '==', 'engineer').get()
+            const eng = await userRef.where('role', '==', 'engineer').get()
+            eng.forEach(e => {
+                this.engineers.push(e.data())
+            })
         }
     }
 }

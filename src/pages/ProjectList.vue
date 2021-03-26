@@ -85,33 +85,28 @@
                 class="overflow-auto"
                 style="height:75vh"
             >
-                <v-card style="height:20rem" class="mb-5" v-for="x in [1,2,3,4,5]" :key="x">
+                <v-card style="height:20rem" class="mb-5" v-for="project in projects" :key="project">
                     <v-card-title>
-                        Lorem Ipsum
+                        {{project.title}}
                     </v-card-title>
                     <v-card-text>
                         <v-row>
                             <v-col cols="9">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus nisl elit, ut bibendum erat rutrum non. 
-                            Cras tincidunt rhoncus quam, quis rhoncus sem bibendum quis. Phasellus at elit dui. Sed ac ex vel ex gravida pretium. 
-                            Pellentesque quis sapien sed nisl elementum iaculis nec in turpis. Maecenas dictum cursus elit, et fringilla nibh condimentum vel. 
-                            Nunc at nibh pretium, ultricies justo eu, convallis elit. Vestibulum vestibulum, lacus vitae suscipit blandit,
-                            </p>
+                            <p>{{project.description}}</p>
                             </v-col>
                             <v-spacer></v-spacer>
                             <v-col cols="3">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus nisl elit, ut bibendum erat rutrum non. 
                                 Cras</p>
                                 <v-spacer></v-spacer>
-                                <p>Username</p>
-                                <a>Contact@details.com</a>
+                                <p>{{project.username}}</p>
+                                <a :href="`mailto:${project.email}`">{{project.email}}</a>
                             </v-col>
                             <v-spacer></v-spacer>
                         </v-row>
                         <v-spacer>  </v-spacer>
                         <v-row>
                             <v-col>
-                                {{new Date()}}
                             </v-col>
                         </v-row>
                     </v-card-text>
@@ -145,7 +140,7 @@ export default {
         async getProjects() {
             try {
                 const proj = db.collection('projects')
-                const allProj = await proj.get()
+                const allProj = await proj.limit(30).get()
                 allProj.forEach(e => {
                     this.projects.push(e.data())
                 })

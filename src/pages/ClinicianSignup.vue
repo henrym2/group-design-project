@@ -1,9 +1,9 @@
 <template>
-      <v-row class="ml-2 mr-2" style="height:97vh" align="center">
+      <v-row class="ml-2 mr-2" align="center">
           
         <div class="rect">
-            <h2 class="slogan">PLATFORM SLOGAN</h2>
-            <p class="description">Platform Description</p>
+            <h2 class="slogan">Clini-link</h2>
+            <p class="description">Connecting Clinicians and Design Engineers to bring ideas from paper to prototype</p>
         </div>
 
         <div class="login"> 
@@ -13,7 +13,7 @@
                 <input type="text" class="textboxB" placeholder="password" v-model="signUpData.password">
                 <input type="text" class="textboxC" placeholder="repeat password" v-model="signUpData.repeatPass">
                 <input type="text" class="textboxD" placeholder="full name" v-model="signUpData.name">
-                <button class="login-btn" @click="signUp"><router-link to="/" class="nav-link">{{"SIGN UP"}}</router-link></button>
+                <button class="login-btn" @click="signUp">SIGN UP</button>
 
 
                 <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
@@ -48,10 +48,12 @@ export default {
                 const { user } = await fb.auth.createUserWithEmailAndPassword(email, password)
                 await fb.users.doc(user.uid).set({email, name, role: "clinician", projects: [], about: ""})
                 const userProfile = await fb.users.doc(user.uid).get()
-                sessionStorage.set('user', JSON.stringify(userProfile.data()))
+                sessionStorage.setItem('user', JSON.stringify(userProfile.data()))
                 sessionStorage.setItem("auth", 'true')
-                await this.$router.push("projects")
+                sessionStorage.setItem("userid", user.uid)
+                await this.$router.push("profile")
             } catch (e) {
+                console.log(e)
                 console.log("Signup fail")
             }
         },

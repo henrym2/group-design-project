@@ -1,8 +1,8 @@
 <template>
-    <v-row class="ml-2 mr-2" style="height:97vh" align="center">  
+    <v-row  align="center">  
         
         <div class="rect">
-            <h2 class="slogan">PLATFORM SLOGAN</h2>
+            <h2 class="slogan">Clini-link</h2>
             <p class="description">Connecting Clinicians and Design Engineers to bring ideas from paper to prototype</p>
         </div>
         <div class="login"> 
@@ -48,7 +48,7 @@ export default {
                     sessionStorage.setItem('auth', 'true')
                     sessionStorage.setItem("user", JSON.stringify(userProfile.data()))
                     sessionStorage.setItem("userid", userProfile.id)
-                    this.$router.push("projects")
+                    this.$router.push("profile")
                 } else {
                     this.authFailed = true
                 }
@@ -112,12 +112,10 @@ export default {
         right: 65.68%;
         top: 0%;
         bottom: 0%;
-        height: 100vh;
 
         background: #0C162B;
     }
 
-   
 
     .login{
         position: absolute;
@@ -126,7 +124,6 @@ export default {
         top: 0%;
         bottom: 0%;
 
-        height: 100vh;
         margin: 0px; 
         padding: 0px;
 
