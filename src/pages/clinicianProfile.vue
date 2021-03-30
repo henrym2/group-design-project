@@ -70,9 +70,9 @@
                         no-resize
                         v-model="newDescription"
                       ></v-textarea>
-                      <v-chip-group v-if="newTags.length != 0">
+                      <v-chip-group v-if="newSkills.length != 0">
                         <v-chip
-                          v-for="tag in newTags"
+                          v-for="tag in newSkills"
                           :key="tag"
                           close
                           @click:close="removeTag(tag)"
@@ -84,7 +84,7 @@
                         append-icon="mdi-plus"
                         @click:append="addTag"
                         @keydown.enter="addTag"
-                        v-model="newTag"
+                        v-model="newSkill"
                       />
                       <v-text-field
                         v-model="newDuration"
@@ -96,6 +96,18 @@
                         :items="healthcareAreas"
                         label="Please Select Healthcare Area"
                       />
+                      <v-select
+                        v-model="newPurpose"
+                        :items="purposes"
+                        label="Please Select Project Purpose"
+                      />
+                      <v-textarea
+                        v-if="newPurpose === 'Other'"
+                        label="Describe other"
+                        counter
+                        no-resize
+                        v-model="newOtherPurpose"
+                      ></v-textarea>
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
@@ -171,12 +183,15 @@ export default {
         "Psychiatry",
         "Radiation oncology",
         "Surgery",
-        "Urology"
+        "Urology",
       ],
-      newTag: "",
-      newTags: [],
+      purposes: ["Research Purposes", "Business Purposes", "Other"],
+      newSkill: "",
+      newSkills: [],
       newDuration: 0,
       newHealthcareArea: "",
+      newPurpose: "",
+      newOtherPurpose: "",
       newTitle: "",
       newDescription: "",
       dialog: false,
@@ -198,20 +213,22 @@ export default {
       sessionStorage.setItem("user", JSON.stringify(this.userData));
     },
     addTag() {
-      this.newTags.push(this.newTag);
-      this.newTag = "";
+      this.newSkills.push(this.newSkill);
+      this.newSkill = "";
     },
     removeTag(tag) {
       console.log(tag);
-      this.newTags = this.newTags.filter((e) => e !== tag);
+      this.newSkills = this.newSkills.filter((e) => e !== tag);
     },
     clearInput() {
-      this.newTags = [];
-      this.newTag = "";
+      this.newSkills = [];
+      this.newSkill = "";
       this.newTitle = "";
       this.newDescription = "";
       this.newDuration = 0;
       this.newHealthcareArea = "";
+      this.newPurpose = "";
+      this.newOtherPurpose = "";
     },
     closeNew() {
       console.log("Test");
@@ -233,18 +250,22 @@ export default {
           username: this.userData.name,
           title: this.newTitle,
           description: this.newDescription,
-          tags: this.newTags,
+          tags: this.newSkills,
           duration: this.newDuration,
-          healthcareArea: this.newHealthcareArea
+          healthcareArea: this.newHealthcareArea,
+          newPurpose: this.newPurpose,
+          newOtherPurpose: this.newOtherPurpose
         });
 
         userProjects.push({
           id: newProject.id,
           title: this.newTitle,
           description: this.newDescription,
-          tags: this.newTags,
+          tags: this.newSkills,
           duration: this.newDuration,
-          healthcareArea: this.newHealthcareArea
+          healthcareArea: this.newHealthcareArea,
+          newPurpose: this.newPurpose,
+          newOtherPurpose: this.newOtherPurpose
         });
         await userRef
           .doc(userID)
