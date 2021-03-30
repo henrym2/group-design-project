@@ -8,15 +8,44 @@
         >
             <v-card-title>{{project.title}}</v-card-title>
             <v-card-text>{{project.description}}</v-card-text>
-            <v-card-actions>
-                <v-chip-group>
-                    <v-chip
-                        pill
-                        v-for="tag in project.tags"
-                        :key="tag"
-                    >{{tag}}</v-chip>
-                </v-chip-group>
-            </v-card-actions>
+            <div v-if="project.tags.length > 0">
+                <v-card-actions>
+                    <v-chip-group>
+                        <v-chip
+                            pill
+                            v-for="tag in project.tags"
+                            :key="tag"
+                        >{{tag}}</v-chip>
+                    </v-chip-group>
+                </v-card-actions>
+            </div>
+            <div v-if="project.duration !== undefined">
+                <div v-if="project.duration !== 0">
+                    <v-card-text>{{project.duration}} Weeks</v-card-text>
+                </div>
+            </div>
+
+            <div v-if="project.healthcareArea !== undefined">
+                <div v-if="project.healthcareArea !== ''">
+                    <v-card-text>Healthcare Area: {{project.healthcareArea}}</v-card-text>
+                </div>
+            </div>
+
+            <div v-if="project.newPurpose !== undefined">
+                <div v-if="project.newPurpose !== ''">
+                    <v-card-text>Project Purpose: {{project.newPurpose}}</v-card-text>
+                </div>
+                <div v-if="project.newOtherPurpose !== ''">
+                    <v-card-text>{{project.newOtherPurpose}}</v-card-text>
+                </div>
+            </div>
+            
+            
+            
+            <!-- duration: String,
+             *      healthcarearea: String,
+             *      newPurpose: String,
+             *      newOtherPurpose: String -->
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="red" @click="deleteProject(project)">Delete</v-btn>    
@@ -37,7 +66,11 @@
              *      id: number,
              *      name: String,
              *      description: String,
-             *      tag: Array
+             *      tag: Array,
+             *      duration: String,
+             *      healthcarearea: String,
+             *      newPurpose: String,
+             *      newOtherPurpose: String
              *     }
              *  ]
              */
