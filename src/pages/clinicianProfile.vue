@@ -36,7 +36,7 @@
                         <v-card flat>
                             <v-card-title>User Projects</v-card-title>
                             <v-card-text>
-                                <Projects :projects="userData.projects" @delete="deleteProject"></Projects>
+                                <Projects :projects="userData.projects" @delete="deleteProject" @toggle="toggleHideProject"></Projects>
                             </v-card-text>
                             <v-card-actions>
                                 <v-dialog  width="73vw" persistent v-model="dialog">
@@ -85,36 +85,6 @@ export default {
             ],
             tabbed: "",
             clinProjects: [
-                {
-                    id: 0,
-                    name: "test",
-                    description: "Test",
-                    tags: [ "test" ]
-                },
-                {
-                    id: 0,
-                    name: "test",
-                    description: "Test",
-                    tags: [ "test" ]
-                },
-                {
-                    id: 0,
-                    name: "test",
-                    description: "Test",
-                    tags: [ "test" ]
-                },
-                {
-                    id: 0,
-                    name: "test",
-                    description: "Test",
-                    tags: [ "test" ]
-                },
-                {
-                    id: 0,
-                    name: "test",
-                    description: "Test",
-                    tags: [ "test" ]
-                }
             ],
             newTag: "",
             newTags: [],
@@ -171,7 +141,8 @@ export default {
                     username: this.userData.name,
                     title: this.newTitle,
                     description: this.newDescription,
-                    tags: this.newTags
+                    tags: this.newTags,
+                    hidden: false
                 })
 
                 userProjects.push({
@@ -213,6 +184,15 @@ export default {
             } catch (err) {
                 console.log(err)
             }
+        },
+        async toggleHideProject(project, state) {
+            try {
+                await db.collection("projects").doc(project.id).set({hidden: state}, {merge: true})
+                this.userData.projects.find(e => e.id === project.id).hidden = state
+                await db.collection('users').doc(sessionStorage.getItem('userid')).set({projects: this.userData.projects}, {merge: state})
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 }
@@ -220,7 +200,7 @@ export default {
 
 <style scoped>
     .toolbar-color {
-      background-color: #0C162B !important;
+        background-color: #0C162B !important;
     }
 
     .card-grey {

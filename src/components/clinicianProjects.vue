@@ -18,6 +18,7 @@
                 </v-chip-group>
             </v-card-actions>
             <v-card-actions>
+                <v-btn @click="toggleHideProject(project)" :color='project.hidden ? "green" : "orange"'>{{project.hidden ? "Show" : "Hide"}}</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn color="red" @click="deleteProject(project)">Delete</v-btn>    
             </v-card-actions>
@@ -37,7 +38,8 @@
              *      id: number,
              *      name: String,
              *      description: String,
-             *      tag: Array
+             *      tag: Array,
+             *      hidden: Boolean
              *     }
              *  ]
              */
@@ -46,6 +48,13 @@
         methods: {
             deleteProject (project) {
                 this.$emit("delete", project)
+            },
+            toggleHideProject (project) {
+                if (project.hidden === false || project.hidden === undefined) {
+                    this.$emit("toggle", project, true)
+                } else {
+                    this.$emit("toggle", project, false)
+                }
             }
         }
     }
