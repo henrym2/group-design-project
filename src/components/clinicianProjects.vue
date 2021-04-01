@@ -48,6 +48,7 @@
             </div>
 
             <v-card-actions>
+                <v-btn @click="toggleHideProject(project)" :color='project.hidden ? "green" : "orange"'>{{project.hidden ? "Show" : "Hide"}}</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn color="red" @click="deleteProject(project)">Delete</v-btn>    
             </v-card-actions>
@@ -64,15 +65,22 @@
              * Project contains array of objects such that
              *  [    
              *     {
-             *      id: number,
-             *      name: String,
-             *      description: String,
-             *      tag: Array,
-             *      duration: String,
-             *      healthcareArea: String,
-             *      otherHealthcareArea: String,
-             *      purpose: String,
-             *      otherPurpose: String
+             *          description: String,
+             *          duration: String,
+             *          email: String,
+             *          healthcareArea: String,
+             *          hidden: Boolean
+             *          otherHealthcareArea: String,
+             *          otherPurpose: String
+             *          purpose: String,
+             *          tags: [
+             *              {
+             *                  String
+             *              }
+             *          ]
+             *          title: String,
+             *          userID: String,
+             *          username: String,
              *     }
              *  ]
              */
@@ -81,6 +89,13 @@
         methods: {
             deleteProject (project) {
                 this.$emit("delete", project)
+            },
+            toggleHideProject (project) {
+                if (project.hidden === false || project.hidden === undefined) {
+                    this.$emit("toggle", project, true)
+                } else {
+                    this.$emit("toggle", project, false)
+                }
             }
         }
     }

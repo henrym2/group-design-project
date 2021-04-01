@@ -41,6 +41,7 @@
                 <Projects
                   :projects="userData.projects"
                   @delete="deleteProject"
+                  @toggle="toggleHideProject"
                 ></Projects>
               </v-card-text>
               <v-card-actions>
@@ -70,14 +71,16 @@
                         no-resize
                         v-model="newDescription"
                       ></v-textarea>
+
                       <v-chip-group v-if="newSkills.length != 0">
                         <v-chip
                           v-for="tag in newSkills"
                           :key="tag"
                           close
                           @click:close="removeTag(tag)"
-                          >{{ tag }}</v-chip
                         >
+                          {{ tag }}
+                        </v-chip>
                       </v-chip-group>
                       <v-text-field
                         label="Skills Required"
@@ -139,38 +142,16 @@ export default {
     return {
       tabs: ["Page 1", "Page 2"],
       tabbed: "",
-      clinProjects: [
-        {
-          id: 0,
-          name: "test",
-          description: "Test",
-          tags: ["test"],
-        },
-        {
-          id: 0,
-          name: "test",
-          description: "Test",
-          tags: ["test"],
-        },
-        {
-          id: 0,
-          name: "test",
-          description: "Test",
-          tags: ["test"],
-        },
-        {
-          id: 0,
-          name: "test",
-          description: "Test",
-          tags: ["test"],
-        },
-        {
-          id: 0,
-          name: "test",
-          description: "Test",
-          tags: ["test"],
-        },
-      ],
+      clinProjects: [],
+      newTitle: "",
+      newDescription: "",
+      newSkill: "",
+      newSkills: [],
+      newDuration: 0,
+      newHealthcareArea: "",
+      newOtherHealthcareArea: "",
+      newPurpose: "",
+      newOtherPurpose: "",
       healthcareAreas: [
         "Allergy and immunology",
         "Anesthesiology",
@@ -192,15 +173,6 @@ export default {
         "Other",
       ],
       purposes: ["Research", "Business", "Other"],
-      newSkill: "",
-      newSkills: [],
-      newDuration: 0,
-      newHealthcareArea: "",
-      newOtherHealthcareArea: "",
-      newPurpose: "",
-      newOtherPurpose: "",
-      newTitle: "",
-      newDescription: "",
       dialog: false,
       userData: JSON.parse(sessionStorage.getItem("user")),
     };
@@ -259,6 +231,7 @@ export default {
           title: this.newTitle,
           description: this.newDescription,
           tags: this.newSkills,
+          hidden: false,
           duration: this.newDuration,
           healthcareArea: this.newHealthcareArea,
           otherHealthcareArea: this.newOtherHealthcareArea,
@@ -314,6 +287,21 @@ export default {
         await userRef.doc(userID).set({ ...newUser }, { merge: true });
       } catch (err) {
         console.log(err);
+      }
+    },
+    async toggleHideProject(project, state) {
+      try {
+        await db
+          .collection("projects")
+          .doc(project.id)
+          .set({ hidden: state }, { merge: true });
+        this.userData.projects.find((e) => e.id === project.id).hidden = state;
+        await db
+          .collection("users")
+          .doc(sessionStorage.getItem("userid"))
+          .set({ projects: this.userData.projects }, { merge: state });
+      } catch (e) {
+        console.log(e);
       }
     },
   },
