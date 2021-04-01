@@ -21,31 +21,32 @@
             </div>
             <div v-if="project.duration !== undefined">
                 <div v-if="project.duration !== 0">
-                    <v-card-text>{{project.duration}} Weeks</v-card-text>
+                    <v-card-text>Estimated project duration: {{project.duration}} Weeks</v-card-text>
                 </div>
             </div>
 
             <div v-if="project.healthcareArea !== undefined">
                 <div v-if="project.healthcareArea !== ''">
-                    <v-card-text>Healthcare Area: {{project.healthcareArea}}</v-card-text>
+                    <div v-if="project.healthcareArea !== 'Other'">
+                        <v-card-text>Healthcare Area: {{project.healthcareArea}}</v-card-text>
+                    </div>
+                </div>
+                <div v-if="project.otherHealthcareArea !== ''">
+                    <v-card-text>Healthcare Area: {{project.otherHealthcareArea}}</v-card-text>
                 </div>
             </div>
 
-            <div v-if="project.newPurpose !== undefined">
-                <div v-if="project.newPurpose !== ''">
-                    <v-card-text>Project Purpose: {{project.newPurpose}}</v-card-text>
+            <div v-if="project.purpose !== undefined">
+                <div v-if="project.purpose !== ''">
+                    <div v-if="project.purpose !== 'Other'">
+                        <v-card-text>Project Purpose: {{project.purpose}}</v-card-text>
+                    </div>
                 </div>
-                <div v-if="project.newOtherPurpose !== ''">
-                    <v-card-text>{{project.newOtherPurpose}}</v-card-text>
+                <div v-if="project.otherPurpose !== ''">
+                    <v-card-text>Project Purpose: {{project.otherPurpose}}</v-card-text>
                 </div>
             </div>
-            
-            
-            
-            <!-- duration: String,
-             *      healthcarearea: String,
-             *      newPurpose: String,
-             *      newOtherPurpose: String -->
+
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="red" @click="deleteProject(project)">Delete</v-btn>    
@@ -68,9 +69,10 @@
              *      description: String,
              *      tag: Array,
              *      duration: String,
-             *      healthcarearea: String,
-             *      newPurpose: String,
-             *      newOtherPurpose: String
+             *      healthcareArea: String,
+             *      otherHealthcareArea: String,
+             *      purpose: String,
+             *      otherPurpose: String
              *     }
              *  ]
              */

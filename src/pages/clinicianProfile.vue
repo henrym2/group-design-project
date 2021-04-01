@@ -91,23 +91,28 @@
                         label="Estimated Project Duration in Weeks"
                         type="number"
                       />
+
                       <v-select
                         v-model="newHealthcareArea"
                         :items="healthcareAreas"
                         label="Please Select Healthcare Area"
                       />
+                      <v-text-field
+                        v-if="newHealthcareArea === 'Other'"
+                        label="State other healthcare area"
+                        v-model="newOtherHealthcareArea"
+                      />
+
                       <v-select
                         v-model="newPurpose"
                         :items="purposes"
                         label="Please Select Project Purpose"
                       />
-                      <v-textarea
+                      <v-text-field
                         v-if="newPurpose === 'Other'"
-                        label="Describe other"
-                        counter
-                        no-resize
+                        label="State other project purpose"
                         v-model="newOtherPurpose"
-                      ></v-textarea>
+                      />
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
@@ -184,12 +189,14 @@ export default {
         "Radiation oncology",
         "Surgery",
         "Urology",
+        "Other",
       ],
-      purposes: ["Research Purposes", "Business Purposes", "Other"],
+      purposes: ["Research", "Business", "Other"],
       newSkill: "",
       newSkills: [],
       newDuration: 0,
       newHealthcareArea: "",
+      newOtherHealthcareArea: "",
       newPurpose: "",
       newOtherPurpose: "",
       newTitle: "",
@@ -227,6 +234,7 @@ export default {
       this.newDescription = "";
       this.newDuration = 0;
       this.newHealthcareArea = "";
+      this.newOtherHealthcareArea = "";
       this.newPurpose = "";
       this.newOtherPurpose = "";
     },
@@ -253,8 +261,9 @@ export default {
           tags: this.newSkills,
           duration: this.newDuration,
           healthcareArea: this.newHealthcareArea,
-          newPurpose: this.newPurpose,
-          newOtherPurpose: this.newOtherPurpose
+          otherHealthcareArea: this.newOtherHealthcareArea,
+          purpose: this.newPurpose,
+          otherPurpose: this.newOtherPurpose,
         });
 
         userProjects.push({
@@ -264,8 +273,9 @@ export default {
           tags: this.newSkills,
           duration: this.newDuration,
           healthcareArea: this.newHealthcareArea,
-          newPurpose: this.newPurpose,
-          newOtherPurpose: this.newOtherPurpose
+          otherHealthcareArea: this.newOtherHealthcareArea,
+          purpose: this.newPurpose,
+          otherPurpose: this.newOtherPurpose,
         });
         await userRef
           .doc(userID)
