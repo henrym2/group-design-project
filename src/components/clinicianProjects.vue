@@ -11,7 +11,8 @@
 
             <!-- Project Description -->
             <v-card-text>{{project.description}}</v-card-text>
-            <!-- Project Topic Tags -->
+
+            <!-- Project Skills Required Tags -->
             <div v-if="project.tags.length > 0">
                 <v-card-actions>
                     <v-chip-group>
@@ -23,12 +24,15 @@
                     </v-chip-group>
                 </v-card-actions>
             </div>
+
+            <!-- Project Duration -->
             <div v-if="project.duration !== undefined">
                 <div v-if="project.duration !== 0">
                     <v-card-text>Estimated project duration: {{project.duration}} Weeks</v-card-text>
                 </div>
             </div>
 
+            <!-- Healthcare Area -->
             <div v-if="project.healthcareArea !== undefined">
                 <div v-if="project.healthcareArea !== ''">
                     <div v-if="project.healthcareArea !== 'Other'">
@@ -40,6 +44,7 @@
                 </div>
             </div>
 
+            <!-- Project Purpose -->
             <div v-if="project.purpose !== undefined">
                 <div v-if="project.purpose !== ''">
                     <div v-if="project.purpose !== 'Other'">
