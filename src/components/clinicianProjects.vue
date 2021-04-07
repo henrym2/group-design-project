@@ -11,17 +11,50 @@
 
             <!-- Project Description -->
             <v-card-text>{{project.description}}</v-card-text>
-            <v-card-actions>
 
-                <!-- Project Topic Tags -->
-                <v-chip-group>
-                    <v-chip
-                        pill
-                        v-for="tag in project.tags"
-                        :key="tag"
-                    >{{tag}}</v-chip>
-                </v-chip-group>
-            </v-card-actions>
+            <!-- Project Skills Required Tags -->
+            <div v-if="project.tags.length > 0">
+                <v-card-actions>
+                    <v-chip-group>
+                        <v-chip
+                            pill
+                            v-for="tag in project.tags"
+                            :key="tag"
+                        >{{tag}}</v-chip>
+                    </v-chip-group>
+                </v-card-actions>
+            </div>
+
+            <!-- Project Duration -->
+            <div v-if="project.duration !== undefined">
+                <div v-if="project.duration !== 0">
+                    <v-card-text>Estimated project duration: {{project.duration}} Weeks</v-card-text>
+                </div>
+            </div>
+
+            <!-- Healthcare Area -->
+            <div v-if="project.healthcareArea !== undefined">
+                <div v-if="project.healthcareArea !== ''">
+                    <div v-if="project.healthcareArea !== 'Other'">
+                        <v-card-text>Healthcare Area: {{project.healthcareArea}}</v-card-text>
+                    </div>
+                </div>
+                <div v-if="project.otherHealthcareArea !== ''">
+                    <v-card-text>Healthcare Area: {{project.otherHealthcareArea}}</v-card-text>
+                </div>
+            </div>
+
+            <!-- Project Purpose -->
+            <div v-if="project.purpose !== undefined">
+                <div v-if="project.purpose !== ''">
+                    <div v-if="project.purpose !== 'Other'">
+                        <v-card-text>Project Purpose: {{project.purpose}}</v-card-text>
+                    </div>
+                </div>
+                <div v-if="project.otherPurpose !== ''">
+                    <v-card-text>Project Purpose: {{project.otherPurpose}}</v-card-text>
+                </div>
+            </div>
 
             <!-- Project Status (Open/Closed) -->
             <v-card-actions>
@@ -45,11 +78,22 @@
              * Project contains array of objects such that
              *  [    
              *     {
-             *      id: number,
-             *      name: String,
-             *      description: String,
-             *      tag: Array,
-             *      hidden: Boolean
+             *          description: String,
+             *          duration: String,
+             *          email: String,
+             *          healthcareArea: String,
+             *          hidden: Boolean
+             *          otherHealthcareArea: String,
+             *          otherPurpose: String
+             *          purpose: String,
+             *          tags: [
+             *              {
+             *                  String
+             *              }
+             *          ]
+             *          title: String,
+             *          userID: String,
+             *          username: String,
              *     }
              *  ]
              */
