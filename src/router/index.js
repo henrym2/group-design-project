@@ -75,7 +75,7 @@ router.beforeEach((to, _, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const isAuthed = sessionStorage.getItem("auth") === "true"
   if (requiresAuth && !isAuthed) {
-    next('/login')
+    next('/')
   } else {
     next()
   }
