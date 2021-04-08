@@ -134,7 +134,7 @@ export default {
     watch: {
         searchParameters: {
             deep: true,
-            handler: function(newbVal, old) {
+            handler: function() {
                 if (this.applyFilters) {
                     this.displayedEngineers = this.engineers.filter(eng => {
                         const {skills, qualifications, verified } = this.searchParameters
