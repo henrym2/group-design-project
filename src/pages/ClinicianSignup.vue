@@ -46,7 +46,7 @@ export default {
             }
             try {
                 const { user } = await fb.auth.createUserWithEmailAndPassword(email, password)
-                await fb.users.doc(user.uid).set({email, name, role: "clinician", projects: [], about: ""})
+                await fb.users.doc(user.uid).set({uid: user.uid, email, name, role: "clinician", projects: [], about: ""})
                 const userProfile = await fb.users.doc(user.uid).get()
                 sessionStorage.setItem('user', JSON.stringify(userProfile.data()))
                 sessionStorage.setItem("auth", 'true')
