@@ -282,7 +282,9 @@ export default {
 				await db
 					.collection("users")
 					.doc(sessionStorage.getItem("userid"))
-					.set({ projects: this.userData.projects }, { merge: true });
+					.set(this.userData, { merge: true });
+				sessionStorage.setItem("user", JSON.stringify(this.userData))
+				
 			} catch (err) {
 				console.log(err);
 			}
@@ -295,6 +297,7 @@ export default {
 
 				const newUser = Object.assign(user.data(), this.userData);
 				await userRef.doc(userID).set({ ...newUser }, { merge: true });
+				sessionStorage.setItem("user", JSON.stringify(newUser))
 			} catch (err) {
 				console.log(err);
 			}
@@ -309,7 +312,8 @@ export default {
 				await db
 					.collection("users")
 					.doc(sessionStorage.getItem("userid"))
-					.set({ projects: this.userData.projects }, { merge: state });
+					.set({ ...this.userData }, { merge: state });
+					sessionStorage.setItem("user", JSON.stringify(this.userData))
 			} catch (e) {
 				console.log(e);
 			}
