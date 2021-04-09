@@ -20,10 +20,9 @@
                         Filter By:
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field label="Filter" ></v-text-field>
                         <v-select multiple label="Skill" :items="skills" v-model="searchParameters.skills"></v-select>
                         <v-select multiple label="Skill" :items="qualifications" v-model="searchParameters.qualifications"></v-select>
-                        
+                        <v-switch label="Apply filters" v-model="applyFilters"></v-switch>
                         <v-divider></v-divider>
                     </v-card-text>
                 </v-card>
@@ -122,7 +121,8 @@ export default {
             },
             comment: "",
             commentDialog: false,
-            selectedEngineer: {}
+            selectedEngineer: {},
+            applyFilters: false
         }
     },
     mounted () {
