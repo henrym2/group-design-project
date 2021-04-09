@@ -30,7 +30,7 @@
 
             </v-col>      
             <v-col
-                cols="8"
+                cols="10"
                 class="overflow-auto"
                 style="height:80vh"
             >
@@ -57,6 +57,10 @@
                         </v-row>
                         <v-spacer></v-spacer>
                         <v-row>
+                            <v-spacer/>
+                            <v-btn color="success" @click="selectedEngineer = engineer; commentDialog = true">Reviews</v-btn>
+                        </v-row>
+                        <v-row>
                             <v-expansion-panels accordion flat class="mt-2">
                                 <v-expansion-panel>
                                     <v-expansion-panel-header>Details</v-expansion-panel-header>
@@ -68,29 +72,34 @@
                                 </v-expansion-panel>
                             </v-expansion-panels>
                         </v-row>
-                        <v-row>
-                            <v-expansion-panels accordion flat class="mt-2">
-                                <v-expansion-panel>
-
-                                <v-expansion-panel-header>Comments</v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <v-row>
-                                        <v-text-field class="ml-3" v-model="comment"></v-text-field>
-                                        <v-btn color="success" @click="submitComment(engineer)" small class="mt-3 ml-3">Comment</v-btn>
-                                    </v-row>
-                                    <v-row v-for="comment in engineer.comments" :key="comment.id">
-                                        <p>{{comment.text}}</p>
-                                        <p>{{comment.name}}</p>
-                                    </v-row>
-                                </v-expansion-panel-content>
-                                </v-expansion-panel>
-                            </v-expansion-panels>
-                        </v-row>
                     </v-card-text>
                 </v-card>
             </v-col>
             <v-spacer></v-spacer>
         </v-row>
+        <v-dialog
+            v-model="commentDialog"
+        >
+        <v-card>
+            <v-card-title>{{selectedEngineer.name}} Reviews</v-card-title>
+            <v-card-text>
+                <v-row>
+                    <v-text-field class="ml-3" v-model="comment"></v-text-field>
+                    <v-btn color="success" @click="submitComment(selectedEngineer)" small class="mt-3 ml-3">Comment</v-btn>
+                </v-row>
+
+                <v-row v-for="comment in selectedEngineer.comments" :key="comment.id">
+                    <v-col cols=10>
+                        <p>{{comment.text}}</p>
+                    </v-col>
+                    <v-col cols=2>
+                        <p>From:{{comment.name}}</p>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+        </v-card>
+            
+        </v-dialog>
     </v-container>
 </template>
 
@@ -111,7 +120,9 @@ export default {
                 qualifications: [], 
                 verified: false
             },
-            comment: ""
+            comment: "",
+            commentDialog: false,
+            selectedEngineer: {}
         }
     },
     mounted () {
@@ -120,13 +131,13 @@ export default {
     computed: {
         skills: function () {
             return [...this.engineers.reduce((acc, e) => {
-                if (e.skills) e.skills.forEach(x => acc.add(x))
+                if (e.skills) e.skills.forEach(x => acc.add(x.toLowerCase()))
                 return acc
             }, new Set())]
         },
         qualifications: function() {
             return [...this.engineers.reduce((acc, e) => {
-                if (e.skills) e.qualifications.forEach(x => acc.add(x))
+                if (e.skills) e.qualifications.forEach(x => acc.add(x.toLowerCase()))
                 return acc
             }, new Set())]
         }
@@ -136,14 +147,18 @@ export default {
             deep: true,
             handler: function() {
                 if (this.applyFilters) {
-                    this.displayedEngineers = this.engineers.filter(eng => {
-                        const {skills, qualifications, verified } = this.searchParameters
-                        if( skills.some(e => eng.skills?.includes(e)) 
-                            && qualifications.some(e => e.qualifications?.includes(e))
-                            && eng?.verified === verified) {
-                                return true
-                            }
-                    })
+                    const {skills, qualifications, verified } = this.searchParameters
+                    let tmpEng = JSON.parse(JSON.stringify(this.engineers))
+                    if (skills.length > 0) {
+                        tmpEng = this.engineers.filter(e => e?.skills?.some(t => skills.includes(t.toLowerCase())))
+                    }
+                    if (qualifications.length > 0) {
+                        tmpEng = tmpEng.filter(e => e?.qualifications?.some(t => qualifications.includes(t.toLowerCase())))
+                    }
+                    if (verified) {
+                        tmpEng = tmpEng.filter(e => e?.verified)
+                    }
+                    this.displayedEngineers = tmpEng
                 }
             }
         }
@@ -180,6 +195,8 @@ export default {
                 console.log(found)
                 await db.collection("users").doc(engineer.uid).set(found, {merge: true})
                 this.comment = ""
+                this.selectedEngineer = found
+                await this.getAll()
             } catch (e) {
                 console.log(e)
             }
