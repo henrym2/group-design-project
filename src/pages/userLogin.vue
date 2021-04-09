@@ -10,18 +10,19 @@
             <input type="text" v-model="loginDetails.email" class="textboxA" placeholder="e-mail">
             <input type="password" v-model="loginDetails.password" class="textboxB" placeholder="password">
             <tand-c></tand-c>
-            <button class="login-btn" @click="login"><router-link to="projects" class="nav-link">{{"LOGIN"}}</router-link></button>
+            <p v-if="authFailed" style="color:red">Email or password not found</p>                
+            <button class="login-btn" @click="login">Login</button>
             <p class="create-link"> Don’t have an account?</p>                        
             <button class="create-link1">  <router-link to="clinicianSignup" class="nav-link">{{"Clinican Sign Up"}}</router-link> </button>                        
-            <button class="create-link2">  <router-link to="engineerSignup" class="nav-link">{{"Engineer Sign Up"}}</router-link> </button>                        
+            <button class="create-link2">  <router-link to="engineerSignup" class="nav-link">{{"Engineer Sign Up"}}</router-link> </button>
         </div>  
     </v-row>
 </template>
 
 
 <script>
- import * as fb from "../firebase/firebase.js"
- import TandC from "../components/TandC.vue"
+import * as fb from "../firebase/firebase.js"
+import TandC from "../components/TandC.vue"
 
 export default {
     name: "Login",
@@ -44,16 +45,18 @@ export default {
                 const { user } = await fb.auth.signInWithEmailAndPassword(email, password)
                 const userProfile = await fb.users.doc(user.uid).get()
                 if (userProfile.exists) {
+                    console.log("login")
                     this.authFailed = false
                     sessionStorage.setItem('auth', 'true')
                     sessionStorage.setItem("user", JSON.stringify(userProfile.data()))
                     sessionStorage.setItem("userid", userProfile.id)
-                    this.$router.push("profile")
+                    this.$router.push("/profile")
                 } else {
                     this.authFailed = true
                 }
             } catch (e) {
                 console.log("Login fail")
+                console.log(e)
                 this.authFailed = true
             }
         }
