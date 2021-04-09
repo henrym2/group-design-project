@@ -4,9 +4,8 @@
             <v-spacer></v-spacer>
             <v-col class="ml-auto">
                 <v-toolbar floating style="z-index:5" width="45rem">
-                    <v-text-field class="mt-5 mr-16" prepend-icon="mdi-magnify" single-line label="Search"></v-text-field>
-                    <v-select class="mt-3 ml-16" multiple chips :items="tags" v-model="selectedTags" label="Tags"></v-select>
-                    <v-btn class="ml-2">Search</v-btn>
+                    <v-text-field class="mt-5" prepend-icon="mdi-magnify" single-line label="Search" v-model="searchParameters.title"></v-text-field>
+                    <v-btn class="ml-auto">Search</v-btn>
                 </v-toolbar>
             </v-col>
             <v-spacer></v-spacer>
@@ -14,78 +13,28 @@
         <v-row style="height:75vh">
             <v-spacer></v-spacer>
             <v-col
-                cols="2"    
+                cols="2"   
             >
                 <v-card style="height:35rem">
                     <v-card-title>
                         Filter By:
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field label="Filter"></v-text-field>
-                        <v-select multiple label="Multi filter"></v-select>
-                        <v-checkbox label="Option 1"></v-checkbox>
-                        <v-checkbox label="Option 2"></v-checkbox>
-                        <v-divider></v-divider>
-                        <v-menu
-                            ref="menu"
-                            v-model="menu"
-                            :close-on-content-click="false"
-                            transition="scale-transition"
-                            offset-y
-                            min-width="auto">
-                            <template v-slot:activator="{on, attrs}">
-                                <v-text-field
-                                    v-model="date"
-                                    label="Start Date"
-                                    prepend-icon="mdi-calendar"
-                                    readonly
-                                    v-bind="attrs"
-                                    v-on="on"
-                                >
-                                </v-text-field>
-                            </template>
-                            <v-date-picker
-                                v-model="date"
-                                no-title
-                                scrollable
-                            >
-                            </v-date-picker>
-                        </v-menu>
-                        <v-menu
-                            ref="menu"
-                            v-model="menu"
-                            :close-on-content-click="false"
-                            transition="scale-transition"
-                            offset-y
-                            min-width="auto">
-                            <template v-slot:activator="{on, attrs}">
-                                <v-text-field
-                                    v-model="date"
-                                    label="End Date"
-                                    prepend-icon="mdi-calendar"
-                                    readonly
-                                    v-bind="attrs"
-                                    v-on="on"
-                                >
-                                </v-text-field>
-                            </template>
-                            <v-date-picker
-                                v-model="date"
-                                no-title
-                                scrollable
-                            >
-                            </v-date-picker>
-                        </v-menu>
+                        <v-select multiple label="Purpose" :items="purposes" v-model="searchParameters.purpose"></v-select>
+                        <v-select multiple label="Healthcare Area" :items="healthcareAreas" v-model="searchParameters.healthcareArea"></v-select>
+                        <v-text-field mutliple label="Author Email" v-model="searchParameters.email"></v-text-field>
+                        <v-select multiple chips :items="tags" v-model="searchParameters.tags" label="Tags"></v-select>
+                        <v-switch v-model="applyFilters" label="Apply Filters"></v-switch>
                     </v-card-text>
                 </v-card>
 
             </v-col>      
             <v-col
-                cols="8"
+                cols="10"
                 class="overflow-auto"
                 style="height:75vh"
             >
-                <v-card style="height:20rem" class="mb-5" v-for="project in projects" :key="project">
+                <v-card style="height:20rem" class="mb-5" v-for="project in displayProjects" :key="project.id">
                     <v-card-title>
                         {{project.title}}
                     </v-card-title>
@@ -96,8 +45,7 @@
                             </v-col>
                             <v-spacer></v-spacer>
                             <v-col cols="3">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus nisl elit, ut bibendum erat rutrum non. 
-                                Cras</p>
+                                <p v-if="project.duration">Duration: {{project.duration}} weeks</p>
                                 <v-spacer></v-spacer>
                                 <p>{{project.username}}</p>
                                 <a :href="`mailto:${project.email}`">{{project.email}}</a>
@@ -124,17 +72,65 @@ export default {
     name: "ProjectList",
     data () {
         return {
-            tags: [
-                "test1",
-                "test2",
-                "test3"
-            ],
             selectedTags: [],
-            projects: []
+            projects: [],
+            searchParameters: {
+                title: "",
+                email: "",
+                healthcareArea: [],
+                purpose: [],
+                tags: []
+            },
+            applyFilters: false,
+            displayProjects: []
         }
     },
     mounted: function() {
         this.getProjects()
+    },
+    computed: {
+        healthcareAreas() {
+            return [...this.projects.reduce((acc, e) => {
+                if (e.healthcareArea) acc.add(e.healthcareArea.toLowerCase())
+                return acc
+            }, new Set())]
+        },
+        purposes() {
+            return [...this.projects.reduce((acc, e) => {
+                if (e.purpose) acc.add(e.purpose.toLowerCase())
+                return acc
+            }, new Set())]
+        },
+        tags() {
+            return [...this.projects.reduce((acc, e) => {
+                if (e.tags) acc.add(e.tags.forEach(t => t.toLowerCase()))
+                return acc
+            }, new Set())]
+        }
+    },
+    watch: {
+        searchParameters: {
+            deep: true,
+            handler: function() {
+                if( this.applyFilters) {
+                    const { email, healthcareArea, purpose, tags } = this.searchParameters
+                    let tmpProjects = JSON.parse(JSON.stringify(this.projects))
+                    if (email != "") {
+                        tmpProjects = tmpProjects.filter(e => e?.email?.toLowerCase().includes(email.toLowerCase()))
+                    }
+                    if (healthcareArea.length > 0) {
+                        tmpProjects = tmpProjects.filter(e => healthcareArea.includes(e?.healthcareArea?.toLowerCase()))
+                    }
+                    if (purpose.length > 0) {
+                        tmpProjects = tmpProjects.filter(e => purpose.includes(e?.purpose?.toLowerCase()))
+                    }
+                    if (tags.length > 0) {
+                        tmpProjects = tmpProjects.filter(e => e?.tags?.some(t => tags.includes(t.toLowerCase())))
+                    }
+                    this.displayProjects = tmpProjects
+                }
+            }
+        }
     },
     methods: {
         async getProjects() {
@@ -144,6 +140,8 @@ export default {
                 allProj.forEach(e => {
                     this.projects.push(e.data())
                 })
+                this.displayProjects = JSON.parse(JSON.stringify(this.projects))
+                this.displayProjects = this.displayProjects.filter(e => !e.hidden)
             } catch (err) {
                 console.log(err)
             }
