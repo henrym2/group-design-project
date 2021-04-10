@@ -11,9 +11,9 @@
                 <h1 class="welcome">Engineer Sign up!</h1>
                 <input type="text" class="textboxD" placeholder="Full Name" v-model="signUpData.name">
                 <input type="text" class="textboxA" placeholder="E-mail Address" v-model="signUpData.email">
-                <input type="text" class="textboxB" placeholder="Password" v-model="signUpData.password">
-                <input type="text" class="textboxC" placeholder="Repeat Password" v-model="signUpData.repeatPass">
-                <input type="text" class="textboxE" placeholder="Engineer Ireland Number" v-model="signUpData.engineernumber">
+                <input type="password" class="textboxB" placeholder="Password" v-model="signUpData.password">
+                <input type="password" class="textboxC" placeholder="Repeat Password" v-model="signUpData.repeatPass">
+                <!-- <input type="text" class="textboxE" placeholder="Engineer Ireland Number" v-model="signUpData.engineernumber"> -->
                 <button class="login-btn" @click="signUp">Sign Up</button>
 
 

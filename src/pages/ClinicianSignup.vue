@@ -10,8 +10,8 @@
             <div class="content">
                 <h1 class="welcome">Clinician Sign up!</h1>
                 <input type="text" class="textboxA" placeholder="e-mail" v-model="signUpData.email">
-                <input type="text" class="textboxB" placeholder="password" v-model="signUpData.password">
-                <input type="text" class="textboxC" placeholder="repeat password" v-model="signUpData.repeatPass">
+                <input type="password" class="textboxB" placeholder="password" v-model="signUpData.password">
+                <input type="password" class="textboxC" placeholder="repeat password" v-model="signUpData.repeatPass">
                 <input type="text" class="textboxD" placeholder="full name" v-model="signUpData.name">
                 <button class="login-btn" @click="signUp">SIGN UP</button>
 
