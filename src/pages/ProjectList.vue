@@ -24,7 +24,7 @@
                         <v-select multiple label="Healthcare Area" :items="healthcareAreas" v-model="searchParameters.healthcareArea"></v-select>
                         <v-text-field mutliple label="Author Email" v-model="searchParameters.email"></v-text-field>
                         <v-select multiple chips :items="tags" v-model="searchParameters.tags" label="Tags"></v-select>
-                        <v-switch v-model="applyFilters" label="Apply Filters"></v-switch>
+                        <!-- <v-switch v-model="applyFilters" label="Apply Filters"></v-switch> -->
                     </v-card-text>
                 </v-card>
 
@@ -112,23 +112,21 @@ export default {
         searchParameters: {
             deep: true,
             handler: function() {
-                if( this.applyFilters) {
-                    const { email, healthcareArea, purpose, tags } = this.searchParameters
-                    let tmpProjects = JSON.parse(JSON.stringify(this.projects))
-                    if (email != "") {
-                        tmpProjects = tmpProjects.filter(e => e?.email?.toLowerCase().includes(email.toLowerCase()))
-                    }
-                    if (healthcareArea.length > 0) {
-                        tmpProjects = tmpProjects.filter(e => healthcareArea.includes(e?.healthcareArea?.toLowerCase()))
-                    }
-                    if (purpose.length > 0) {
-                        tmpProjects = tmpProjects.filter(e => purpose.includes(e?.purpose?.toLowerCase()))
-                    }
-                    if (tags.length > 0) {
-                        tmpProjects = tmpProjects.filter(e => e?.tags?.some(t => tags.includes(t.toLowerCase())))
-                    }
-                    this.displayProjects = tmpProjects
+                const { email, healthcareArea, purpose, tags } = this.searchParameters
+                let tmpProjects = JSON.parse(JSON.stringify(this.projects))
+                if (email != "") {
+                    tmpProjects = tmpProjects.filter(e => e?.email?.toLowerCase().includes(email.toLowerCase()))
                 }
+                if (healthcareArea.length > 0) {
+                    tmpProjects = tmpProjects.filter(e => healthcareArea.includes(e?.healthcareArea?.toLowerCase()))
+                }
+                if (purpose.length > 0) {
+                    tmpProjects = tmpProjects.filter(e => purpose.includes(e?.purpose?.toLowerCase()))
+                }
+                if (tags.length > 0) {
+                    tmpProjects = tmpProjects.filter(e => e?.tags?.some(t => tags.includes(t.toLowerCase())))
+                }
+                this.displayProjects = tmpProjects
             }
         }
     },

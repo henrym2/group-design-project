@@ -22,7 +22,6 @@
                     <v-card-text>
                         <v-select multiple label="Skill" :items="skills" v-model="searchParameters.skills"></v-select>
                         <v-select multiple label="Skill" :items="qualifications" v-model="searchParameters.qualifications"></v-select>
-                        <v-switch label="Apply filters" v-model="applyFilters"></v-switch>
                         <v-divider></v-divider>
                     </v-card-text>
                 </v-card>
@@ -146,20 +145,18 @@ export default {
         searchParameters: {
             deep: true,
             handler: function() {
-                if (this.applyFilters) {
-                    const {skills, qualifications, verified } = this.searchParameters
-                    let tmpEng = JSON.parse(JSON.stringify(this.engineers))
-                    if (skills.length > 0) {
-                        tmpEng = this.engineers.filter(e => e?.skills?.some(t => skills.includes(t.toLowerCase())))
-                    }
-                    if (qualifications.length > 0) {
-                        tmpEng = tmpEng.filter(e => e?.qualifications?.some(t => qualifications.includes(t.toLowerCase())))
-                    }
-                    if (verified) {
-                        tmpEng = tmpEng.filter(e => e?.verified)
-                    }
-                    this.displayedEngineers = tmpEng
+                const {skills, qualifications, verified } = this.searchParameters
+                let tmpEng = JSON.parse(JSON.stringify(this.engineers))
+                if (skills.length > 0) {
+                    tmpEng = this.engineers.filter(e => e?.skills?.some(t => skills.includes(t.toLowerCase())))
                 }
+                if (qualifications.length > 0) {
+                    tmpEng = tmpEng.filter(e => e?.qualifications?.some(t => qualifications.includes(t.toLowerCase())))
+                }
+                if (verified) {
+                    tmpEng = tmpEng.filter(e => e?.verified)
+                }
+                this.displayedEngineers = tmpEng
             }
         }
     },
@@ -190,7 +187,8 @@ export default {
                 found.comments.push({
                     id: found.comments.length,
                     name: this.userData.name,
-                    text: this.comment
+                    text: this.comment,
+                    uid: sessionStorage.getItem("userid")
                 })
                 console.log(found)
                 await db.collection("users").doc(engineer.uid).set(found, {merge: true})
