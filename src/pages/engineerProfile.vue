@@ -90,7 +90,7 @@
                     </v-tab-item>
                     <!-- User Comments/Reviews -->
                     <v-tab-item v-if="userData.comments" class="overflow-auto">
-                        <v-card flat>
+                        <v-card flat height="80vh">
                             <v-card-title>User Reviews</v-card-title>
                             <v-card-text>
                                 <v-card v-for="comment in userData.comments" :key="comment.id">
