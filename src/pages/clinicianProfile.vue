@@ -6,10 +6,11 @@
 					<v-toolbar-title>Your Profile</v-toolbar-title>
 					<v-spacer></v-spacer>
 				</v-toolbar>
-				<v-tabs vertical>
+				<v-tabs vertical class="overflow-auto">
 					<v-tabs-slider color="yellow"></v-tabs-slider>
 					<v-tab> User Details </v-tab>
 					<v-tab> Your Projects </v-tab>
+					<v-tab> Collaboraters </v-tab>
 					<v-tab-item>
 						<v-card flat>
 							<v-card-title>Details</v-card-title>
@@ -34,7 +35,7 @@
 							</v-card-text>
 						</v-card>
 					</v-tab-item>
-					<v-tab-item class="overflow-auto">
+					<v-tab-item>
 						<v-card flat>
 							<v-card-title>User Projects</v-card-title>
 							<v-card-text>
@@ -55,7 +56,6 @@
 											>Add</v-btn
 										>
 									</template>
-
 									<!-- Add a new project -->
 									<v-card>
 										<v-card-title class="headline">
@@ -137,6 +137,67 @@
 							</v-card-actions>
 						</v-card>
 					</v-tab-item>
+					<v-tab-item v-if="userData.collaborators != undefined || userData.collaborators > 0"  >
+						<v-card flat >
+							<v-card-title>Past Collaborators</v-card-title>
+							<v-card-text  style="height:60vh" class="overflow-auto">
+								<v-card v-for="collaborator in userData.collaborators" :key="collaborator.uid" class="mt-4">
+									<v-card-title>
+										{{ collaborator.name }}
+									</v-card-title>
+									<v-card-text>
+										{{ collaborator.about }}
+									</v-card-text>
+									<v-card-actions>
+										<v-spacer/>
+										<v-btn @click="removeCollaborator(collaborator)" color="red">Remove</v-btn>
+									</v-card-actions>
+								</v-card>
+							</v-card-text>
+							<v-card-actions>
+								<v-dialog>
+									<template v-slot:activator="{on, attrs}">
+										<v-btn
+											v-bind="attrs"
+											v-on="on"
+											v-model="addCollab"
+											color="green"
+										>
+											Add Collaborator
+										</v-btn>
+									</template>
+									<v-card>
+										<v-card-title>
+											Engineers
+										</v-card-title>
+										<v-card-text>
+											<v-card v-for="engineer in engineers" :key="engineer.name" class="mt-2">
+												<v-card-title>
+													Name:: {{engineer.name}}
+												</v-card-title>
+												<v-card-text>
+													<v-row align="center" class="text-center">
+														<v-avatar color="blue" size="3em">
+															<span class="white--text headline">{{engineer.name[0]}}</span>
+														</v-avatar>
+													<p>Email:: {{engineer.email}}</p>
+													</v-row>
+												</v-card-text>
+												<v-card-actions>
+													<v-spacer/>
+													<v-btn @click="addCollaborator(engineer)">Add</v-btn>
+												</v-card-actions>
+											</v-card>
+											<!-- <v-row v-for="engineer in engineers" :key="engineer.name" class="mt-10">
+												<v-spacer></v-spacer>
+											</v-row> -->
+										</v-card-text>
+									</v-card>
+								</v-dialog>
+								
+							</v-card-actions>
+						</v-card>
+					</v-tab-item>
 				</v-tabs>
 			</v-card>
 		</v-row>
@@ -185,10 +246,20 @@ export default {
 			purposes: ["Research", "Business", "Other"],
 			dialog: false,
 			userData: JSON.parse(sessionStorage.getItem("user")),
+			engineers: []
 		};
 	},
 	components: {
 		Projects,
+	},
+	watch: {
+		"userData.collaborators" (newVal) {
+			this.engineers = this.engineers.filter(eng => {
+				return !newVal.some(c => {
+					return c.uid === eng.uid
+				})
+			})
+		}
 	},
 	computed: {},
 	mounted: function () {
@@ -199,6 +270,13 @@ export default {
 			this.userData = (
 				await db.collection("users").doc(sessionStorage.getItem("userid")).get()
 			).data();
+			const engineers = await db.collection("users").where('role', '==', 'engineer').get()
+			engineers.forEach(e => this.engineers.push(e.data()))
+			this.engineers = this.engineers.filter(eng => {
+				return !this.userData.collaborators.some(c => {
+					return c.uid === eng.uid
+				})
+			})
 			sessionStorage.setItem("user", JSON.stringify(this.userData));
 		},
 		addTag() {
@@ -224,6 +302,24 @@ export default {
 			console.log("Test");
 			this.clearInput();
 			this.dialog = false;
+		},
+		async addCollaborator(engineer) {
+			try {
+				this.userData.collaborators.push(engineer)
+				await db.collection("users").doc(sessionStorage.getItem("userid")).set(this.userData, {merge: true})
+				sessionStorage.setItem("user", JSON.stringify(this.userData))
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		async removeCollaborator(engineer) {
+			try {
+				this.userData.collaborators = this.userData.collaborators.filter(e => e.uid !== engineer.uid)
+				await db.collection("users").doc(sessionStorage.getItem("userid")).set(this.userData, {merge: true})
+				sessionStorage.setItem("user", JSON.stringify(this.userData))
+			} catch (e) {
+				console.log(e)
+			}
 		},
 		async saveNew() {
 			///Save Stuff
