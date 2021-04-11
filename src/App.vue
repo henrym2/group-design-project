@@ -18,7 +18,7 @@
         </v-toolbar-items>
       </v-app-bar>
       
-      <v-main>
+      <v-main class="white-smoke">
         <router-view/>
       </v-main>
     </v-app>
@@ -47,5 +47,11 @@ export default {
 .nav-link{
   color: white !important;
   margin: 20px;
+}
+
+.white-smoke {
+  background-color: whitesmoke;
+  background-repeat: repeat;
+  overflow-y: auto;
 }
 </style>
