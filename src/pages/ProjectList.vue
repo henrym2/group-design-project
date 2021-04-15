@@ -73,6 +73,34 @@
                                         </v-col>
                                     </v-row>
                                 </v-card-actions>
+
+                                <v-card-text>
+                                    <v-row>
+                                        <v-col>
+                                            <!-- Healthcare Area -->
+                                            <div v-if="project.healthcareArea !== undefined">
+                                                <div v-if="project.healthcareArea !== ''">
+                                                    <p v-if="project.healthcareArea !== 'Other'">Healthcare Area: {{project.healthcareArea}}</p>
+                                                </div>
+                                                <div v-if="project.otherHealthcareArea">
+                                                    <p v-if="project.otherHealthcareArea !== ''">Healthcare Area: {{project.otherHealthcareArea}}</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Project Purpose -->
+                                            <div v-if="project.purpose">
+                                                <div v-if="project.purpose !== ''">
+                                                    <p v-if="project.purpose !== 'Other'">
+                                                        Project Purpose: {{project.purpose}}
+                                                    </p>
+                                                </div>
+                                                <p v-if="project.otherPurpose !== ''">
+                                                    Project Purpose: {{project.otherPurpose}}
+                                                </p>
+                                            </div>
+                                        </v-col>
+                                    </v-row>
+                                </v-card-text>
                             </v-card>
                         </v-hover>
                     </template>
