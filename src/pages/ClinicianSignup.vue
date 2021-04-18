@@ -14,12 +14,13 @@
                 <input type="password" class="textboxC" placeholder="repeat password" v-model="signUpData.repeatPass">
                 <input type="text" class="textboxD" placeholder="full name" v-model="signUpData.name">
                 <button class="login-btn" @click="signUp">SIGN UP</button>
-
-
                 <p class="terms"> <router-link to="T&C" class="nav-link">{{"By signing in I agree to the Privacy Policy and Terms of Service"}}</router-link> </p>
                 
             </div>
         </div>
+        <v-snackbar v-model="snack.state" :color="snack.color" :timeout="5000">
+            {{snack.text}}
+        </v-snackbar>
       </v-row>
 </template>
 
@@ -34,6 +35,11 @@ export default {
                 password: "",
                 repeatPass: "",
                 name: ""
+            },
+            snack: {
+                state: false,
+                text: "",
+                color: ""
             }
         }
     },
@@ -46,15 +52,25 @@ export default {
             }
             try {
                 const { user } = await fb.auth.createUserWithEmailAndPassword(email, password)
-                await fb.users.doc(user.uid).set({uid: user.uid, email, name, role: "clinician", projects: [], about: ""})
+                await fb.users.doc(user.uid).set({uid: user.uid, email, name, role: "clinician", projects: [], about: "", collaborators: []})
                 const userProfile = await fb.users.doc(user.uid).get()
                 sessionStorage.setItem('user', JSON.stringify(userProfile.data()))
                 sessionStorage.setItem("auth", 'true')
                 sessionStorage.setItem("userid", user.uid)
+                this.snack = {
+                    state: true,
+                    text: "Signup success!",
+                    color: "success"
+                }
                 await this.$router.push("profile")
             } catch (e) {
                 console.log(e)
                 console.log("Signup fail")
+                this.snack = {
+                    state: true,
+                    text: "Signup failed, please try again",
+                    color: "error"
+                }
             }
         },
         validateLogin(signUpData) {

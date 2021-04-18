@@ -188,9 +188,6 @@
 													<v-btn @click="addCollaborator(engineer)">Add</v-btn>
 												</v-card-actions>
 											</v-card>
-											<!-- <v-row v-for="engineer in engineers" :key="engineer.name" class="mt-10">
-												<v-spacer></v-spacer>
-											</v-row> -->
 										</v-card-text>
 									</v-card>
 								</v-dialog>

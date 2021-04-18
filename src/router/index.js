@@ -79,7 +79,18 @@ const routes = [
   {
     path: '/fullmess',
     name: "fullmess",
-    component: () => import("../pages/fullmess.vue")
+    component: () => import("../pages/fullmess.vue"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/recommendations',
+    name: "Recommendation Forum",
+    component: () => import("../pages/recommendationForum.vue"),
+    meta: {
+      requiresAuth: true
+    }
   }
 
 
