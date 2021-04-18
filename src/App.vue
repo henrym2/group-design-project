@@ -1,9 +1,11 @@
 <!-- src/components/AppNav.vue -->
 <template>
     <v-app id="app">
-      <v-app-bar class="bar" app>
+      <navigation>
+<v-app-bar class="bar" app>
 
-        <v-toolbar-title>
+        
+<v-toolbar-title>
           <a style="color:white;" @click="logout">Log Out</a>
         </v-toolbar-title>
 
@@ -17,10 +19,13 @@
           <router-link to="/findEngineer" class="nav-link">Find an Engineer</router-link>    
         </v-toolbar-items>
       </v-app-bar>
+      </navigation>
       
       <v-main class="white-smoke">
         <router-view/>
       </v-main>
+     
+
     </v-app>
 </template>
 

@@ -8,7 +8,8 @@ const routes = [
   {
     path: '/',
     name: "Login",
-    component: () => import("../pages/userLogin.vue")
+    component: () => import("../pages/userLogin.vue"),
+    meta: { hideNavigation: true }
   },
   {
     path: '/form',
@@ -59,7 +60,29 @@ const routes = [
     // meta: {
     //   requiresAuth: true
     // }
+  },
+  {
+    path: '/view-mess',
+    name: "viewMess",
+    component: () => import("../pages/ViewMess.vue")
+  },
+  {
+    path: '/add-mess',
+    name: "addMess",
+    component: () => import("../pages/AddMess.vue")
+  },
+  {
+    path: '/dashboard',
+    name: "dashboard",
+    component: () => import("../pages/dashboard.vue")
+  },
+  {
+    path: '/fullmess',
+    name: "fullmess",
+    component: () => import("../pages/fullmess.vue")
   }
+
+
 ]
 
 const router = new VueRouter({
