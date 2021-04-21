@@ -4,8 +4,11 @@
             <v-spacer></v-spacer>
             <v-col class="ml-auto">
                 <v-toolbar floating style="z-index:1" width="45rem">
-                    <v-text-field class="mt-5" prepend-icon="mdi-magnify" single-line label="Search" v-model="searchParameters.title"></v-text-field>
-                    <v-btn class="ml-auto">Search</v-btn>
+                    <v-text-field class="mt-5" 
+                        prepend-icon="mdi-magnify" 
+                        single-line label="Search" 
+                        style="width:40rem"  v-model="searchParameters.title"></v-text-field>
+                    <!-- <v-btn class="ml-auto">Search</v-btn> -->
                 </v-toolbar>
             </v-col>
             <v-spacer></v-spacer>

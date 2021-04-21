@@ -3,9 +3,15 @@
         <v-row justify="center" class="mt-1">
             <v-spacer></v-spacer>
             <v-col class="ml-auto">
-                <v-toolbar floating style="z-index:1" width="45rem">
-                    <v-text-field class="mt-5 mr-16" prepend-icon="mdi-magnify" single-line label="Search" v-model="searchParameters.name"></v-text-field>
-                    <v-btn class="ml-2" @click="findEngineer">Search</v-btn>
+                <v-toolbar floating style="z-index:1" width="45rem" class="d-flex">
+                    <v-text-field 
+                        class="mt-5" 
+                        prepend-icon="mdi-magnify" 
+                        single-line label="Search" 
+                        style="width:40rem" 
+                        v-model="searchParameters.name">
+                    </v-text-field>
+                    <!-- <v-btn class="ml-2 ml-auto" @click="findEngineer">Search</v-btn> -->
                 </v-toolbar>
             </v-col>
             <v-spacer></v-spacer>
@@ -24,7 +30,6 @@
                         <v-select multiple label="Qualifications" :items="qualifications" v-model="searchParameters.qualifications"></v-select>
                     </v-card-text>
                 </v-card>
-
             </v-col>      
             <v-col
                 cols="10"
@@ -37,7 +42,7 @@
                         <v-hover v-slot="{ hover }" :key="i">
                             <v-card flat  class="project-card" tile :elevation="hover ? 4: 0">
                                 <v-card-title>
-                                    <h4 class="text-h6"><a class="black--text">{{engineer.name}}</a></h4>
+                                    <h4 class="text-h4"><a class="black--text">{{engineer.name}}</a></h4>
                                 </v-card-title>
                                 <v-card-text>
                                     <v-row>
@@ -65,9 +70,39 @@
                                             <v-expansion-panel>
                                                 <v-expansion-panel-header>Details</v-expansion-panel-header>
                                                 <v-expansion-panel-content>
-                                                    <p>Skills</p>
-                                                    <p>Past experience</p>
-                                                    <p>additional information</p>
+                                                    <v-row class="text-center">
+                                                        <h class="mt-2 ml-3 mr-2 text-subtitle-1">Skills:</h>  
+                                                        <v-chip-group>
+                                                            <v-chip
+                                                                small
+                                                                @click="searchParameters.skills.push(tag.toLowerCase())"
+                                                                v-for="(skill, i) in engineer.skills"
+                                                                :key="i"
+                                                            >{{skill}}</v-chip>
+                                                        </v-chip-group>
+                                                    </v-row>
+                                                    <v-row class="text-center">
+                                                        <h class="mt-2 ml-3 mr-2 text-subtitle-1">Experience:</h>  
+                                                        <v-chip-group>
+                                                            <v-chip
+                                                                small
+                                                                @click="searchParameters.experience.push(tag.toLowerCase())"
+                                                                v-for="(e, i) in engineer.experience"
+                                                                :key="i"
+                                                            >{{e}}</v-chip>
+                                                        </v-chip-group>
+                                                    </v-row>
+                                                    <v-row class="text-center">
+                                                        <h class="mt-2 ml-3 mr-2 text-subtitle-1">Qualifications:</h>  
+                                                        <v-chip-group>
+                                                            <v-chip
+                                                                small
+                                                                @click="searchParameters.experience.push(tag.toLowerCase())"
+                                                                v-for="(e, i) in engineer.qualifications"
+                                                                :key="i"
+                                                            >{{e}}</v-chip>
+                                                        </v-chip-group>
+                                                    </v-row>
                                                 </v-expansion-panel-content>
                                             </v-expansion-panel>
                                         </v-expansion-panels>
@@ -83,7 +118,7 @@
         <v-dialog
             v-model="commentDialog"
         >
-        <v-card>
+        <v-card height="50vh">
             <v-card-title>{{selectedEngineer.name}} Reviews</v-card-title>
             <v-card-text>
                 <v-row>

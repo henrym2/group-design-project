@@ -3,9 +3,11 @@
         <v-row justify="center" class="mt-1">
             <v-spacer></v-spacer>
             <v-col class="ml-auto">
-                <v-toolbar floating style="z-index:1" width="45rem">
-                    <v-text-field class="mt-5" prepend-icon="mdi-magnify" single-line label="Search" v-model="searchParameters.title"></v-text-field>
-                    <v-btn class="ml-auto">Search</v-btn>
+                <v-toolbar floating style="z-index:1" width="45rem" class="d-flex">
+                    <v-text-field class="mt-5" 
+                        prepend-icon="mdi-magnify" 
+                        single-line label="Search" 
+                        style="width:40rem"  v-model="searchParameters.title"></v-text-field>
                 </v-toolbar>
             </v-col>
             <v-spacer></v-spacer>
@@ -45,39 +47,9 @@
                                 </v-card-title>
                                 <v-card-text>
                                     <v-row>
-                                        <v-col cols="9">
+                                        <v-col cols="9" class="d-flex flex-column">
                                         <p>{{project.description}}</p>
-                                        </v-col>
-                                        <v-spacer></v-spacer>
-                                        <v-col cols="3">
-                                            <p v-if="project.duration">Duration: {{project.duration}} weeks</p>
-                                            <v-spacer></v-spacer>
-                                            <p>{{project.username}}</p>
-                                            <a :href="`mailto:${project.email}`">{{project.email}}</a>
-                                        </v-col>
-                                        <v-spacer></v-spacer>
-                                    </v-row>
-                                    <v-spacer> </v-spacer>
-                                    
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-row>
-                                        <v-col>
-                                            <v-chip-group>
-                                                <v-chip
-                                                    @click="searchParameters.tags.push(tag.toLowerCase())"
-                                                    v-for="(tag, i) in project.tags"
-                                                    :key="i"
-                                                >{{tag}}</v-chip>
-                                            </v-chip-group>
-                                        </v-col>
-                                    </v-row>
-                                </v-card-actions>
 
-                                <v-card-text>
-                                    <v-row>
-                                        <v-col>
-                                            <!-- Healthcare Area -->
                                             <div v-if="project.healthcareArea !== undefined">
                                                 <div v-if="project.healthcareArea !== ''">
                                                     <p v-if="project.healthcareArea !== 'Other'">Healthcare Area: {{project.healthcareArea}}</p>
@@ -86,7 +58,7 @@
                                                     <p v-if="project.otherHealthcareArea !== ''">Healthcare Area: {{project.otherHealthcareArea}}</p>
                                                 </div>
                                             </div>
-
+                                            
                                             <!-- Project Purpose -->
                                             <div v-if="project.purpose">
                                                 <div v-if="project.purpose !== ''">
@@ -98,7 +70,22 @@
                                                     Project Purpose: {{project.otherPurpose}}
                                                 </p>
                                             </div>
+                                            <v-chip-group>
+                                                <v-chip
+                                                    @click="searchParameters.tags.push(tag.toLowerCase())"
+                                                    v-for="(tag, i) in project.tags"
+                                                    :key="i"
+                                                >{{tag}}</v-chip>
+                                            </v-chip-group>
                                         </v-col>
+                                        <v-spacer></v-spacer>
+                                        <v-col cols="3">
+                                            <p v-if="project.duration">Duration: {{project.duration}} weeks</p>
+                                            <v-spacer></v-spacer>
+                                            <p>{{project.username}}</p>
+                                            <a :href="`mailto:${project.email}`">{{project.email}}</a>
+                                        </v-col>
+                                        <v-spacer></v-spacer>
                                     </v-row>
                                 </v-card-text>
                             </v-card>
