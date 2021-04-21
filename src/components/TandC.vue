@@ -22,12 +22,15 @@
             </template>
 
             <v-card>
+
+                
                 
                 <v-card-title class="headline grey lighten-2">
                     Terms & Conditions
                 </v-card-title>
 
                 <v-card-text>
+                
                     <br>
                     <p>
                         Terms and Conditions
@@ -147,6 +150,7 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
+            
         </div>
         
         </div>

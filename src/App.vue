@@ -17,7 +17,8 @@
           <router-link to="/recommendations" class="nav-link">Recommendations</router-link>
           <!-- <router-link to="/" class="nav-link">Messages</router-link> -->
           <router-link to="/projects" class="nav-link">Projects</router-link>
-          <router-link to="/findEngineer" class="nav-link">Find an Engineer</router-link>    
+          <router-link to="/findEngineer" class="nav-link">Find an Engineer</router-link> 
+          <router-link to="/dashboard" class="nav-link">Message Board</router-link>    
         </v-toolbar-items>
       </v-app-bar>
       </navigation>

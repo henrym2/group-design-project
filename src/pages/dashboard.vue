@@ -2,7 +2,7 @@
   <section class="container">
     <div class="columns">
       <div class="column is-8">
-        <h1>All Messages</h1>
+        <h1>Clinilink Message Board</h1>
 
         <div class="navbar-end">
           <router-link to="/add-mess" class="navbar-item">Post a New Message</router-link>
@@ -17,7 +17,7 @@
                 <p class="user-list__sub animated-background__sub"></p>
               </div>
               <div class="column is-4 right">
-                <router-link class="button is-primary" to="/fullmess">Contact</router-link>
+                <router-link class="button is-primary" to="view-mess">Reach Out</router-link>
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
                 <p class="user-list__sub animated-background__sub"></p>
               </div>
               <div class="column is-4 right">
-                <router-link class="button is-primary" to="/fullmess">Contact</router-link>
+                <router-link class="button is-primary" to="view-mess">Reach Out</router-link>
               </div>
             </div>
           </div>
@@ -43,7 +43,7 @@
                 <p class="user-list__sub animated-background__sub"></p>
               </div>
               <div class="column is-4 right">
-                <router-link class="button is-primary" to="/fullmess">Contact</router-link>
+                <router-link class="button is-primary" to="view-mess">Reach Out</router-link>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@
                 <p class="user-list__sub animated-background__sub"></p>
               </div>
               <div class="column is-4 right">
-                <router-link class="button is-primary" to="/fullmess">Contact</router-link>
+                <router-link class="button is-primary" to="view-mess" href="mailto: person.emailaddress">Reach Out</router-link>
               </div>
             </div>
           </div>
@@ -65,18 +65,23 @@
         <div class="user-list" v-for="person in posts" :key="person">
           <div class="columns">
             <div class="column is-8">
-              <p class="user-list__header">{{person.firstname}} {{person.lastname}}</p>
+              <p class="user-list__header">{{person.title}}</p>
               <div class="inner">
                 <div class="left">
-                  <p class="user-list__sub"><strong>Email</strong>: {{person.emailaddress}}</p>
-                </div>
-                <div class="right">
                   <p class="user-list__sub"><strong>Message</strong>: {{person.message}}</p>
                 </div>
+                <br>
+                <div class="left">
+                  <p class="user-list__sub"><strong>Reach out to me at: </strong>: {{person.emailaddress}}</p>
+                </div>
+                <!--
+                <div class="right">
+                  <p class="user-list__sub"><strong>Email</strong>: {{person.emailaddress}}</p>
+                </div> -->
               </div>
             </div>
             <div class="column is-4 right">
-              <router-link class="button is-primary" v-bind:to="{ name: 'view-contact', params: { person: person.slug }}">Contact</router-link>
+              <router-link class="button is-primary" v-bind:to="{ name: 'view-mess', params: { person: person.slug }}">Reach Out</router-link>
             </div>
           </div>
         </div>
@@ -107,6 +112,7 @@
             'lastname': doc.data().lastname,
             'emailaddress': doc.data().emailaddress,
             'message': doc.data().message,
+            'title': doc.data().title,
             'slug': doc.data().slug
           }
           this.posts.push(data)
@@ -131,7 +137,7 @@
     }
     .inner {
       .left {
-        width: 50%;
+        width: 90%;
         float: left;
         text-align: left;
       }

@@ -15,6 +15,7 @@
     "firebase": "^8.2.10",
     "vee-validate": "^2.2.15",
     "vue": "^2.6.12",
+    "vue-eagle-modal": "^1.0.6",
     "vue-js-modal": "^2.0.0-rc.6",
     "vue-router": "^3.5.1",
     "vuetify": "^2.4.0"

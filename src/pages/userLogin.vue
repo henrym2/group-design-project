@@ -3,18 +3,25 @@
         
         <div class="rect">
             <h2 class="slogan">Clini-link</h2>
-            <p class="description">Connecting Clinicians and Design Engineers to bring ideas from paper to prototype</p>
+            <p class="description">Connecting Clinicians with Engineers to bring ideas from paper to prototype</p>
         </div>
         <div class="login"> 
             <h1 class="welcome">Welcome Back!</h1>
-            <input type="text" v-model="loginDetails.email" class="textboxA" placeholder="e-mail">
-            <input type="password" v-model="loginDetails.password" class="textboxB" placeholder="password">
+            
+                <input type="text" v-model="loginDetails.email" class="textboxA" placeholder="e-mail">
+                <input type="password" v-model="loginDetails.password" class="textboxB" placeholder="password">            
+            
             <tand-c></tand-c>
-            <p v-if="authFailed" style="color:red">Email or password not found</p>                
+            
+
+            <p v-if="authFailed" style="color:red">Email or password not found</p> 
+
             <button class="login-btn" @click="login">Login</button>
-            <p class="create-link"> Don’t have an account?</p>                        
-            <button class="create-link1">  <router-link to="clinicianSignup" class="nav-link">{{"Clinican Sign Up"}}</router-link> </button>                        
-            <button class="create-link2">  <router-link to="engineerSignup" class="nav-link">{{"Engineer Sign Up"}}</router-link> </button>
+            <p class="create-link"> Don’t have an account?</p>     
+
+            <eng></eng>  
+            <clinician></clinician>                   
+            
         </div>  
     </v-row>
 </template>
@@ -23,6 +30,9 @@
 <script>
 import * as fb from "../firebase/firebase.js"
 import TandC from "../components/TandC.vue"
+import eng from "../components/EngineerSignup.vue"
+import clinician from "../components/ClinicianSignup.vue"
+
 
 export default {
     name: "Login",
@@ -36,7 +46,9 @@ export default {
         }
     },
     components: {
-        TandC
+        TandC,
+        clinician,
+        eng
     },
     methods: {
         async login () {
@@ -165,7 +177,6 @@ export default {
 
         background: #EEF1F5;
 
-        padding: 10px;
     }
 
     .textboxB{
@@ -182,7 +193,7 @@ export default {
 
         background: #EEF1F5;
 
-        padding: 10px;
+        
     }
 
     ::placeholder{
@@ -223,7 +234,7 @@ export default {
         letter-spacing: 3px;
         text-transform: capitalize;
 
-        color: rgb(0, 0, 0) !important;
+        color: rgb(255, 255, 255) !important;
 
         font-family: Rubik;
  

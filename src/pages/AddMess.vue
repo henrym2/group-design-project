@@ -6,6 +6,13 @@
     <form @submit.prevent="saveContact">
 
       <div class="field">
+        <label class="label">Post Title</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Post Title" v-model="title" required>
+        </div>
+      </div>
+
+      <div class="field">
         <label class="label">First Name</label>
         <div class="control">
           <input class="input" type="text" placeholder="First Name" v-model="firstname" required>
@@ -55,7 +62,8 @@
           firstname: null,
           lastname: null,
           emailaddress: null,
-          message: null
+          message: null,
+          title: null
         }
       },
       methods: {
@@ -65,6 +73,7 @@
             lastname: this.lastname,
             emailaddress: this.emailaddress,
             message: this.message,
+            title: this.title,
             slug: this.generateUUID()
           })
             .then(function (docRef) {

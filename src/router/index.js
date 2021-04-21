@@ -20,16 +20,6 @@ const routes = [
     }
   },
   {
-    path: '/clinicianSignup',
-    name: "clinicianSignup",
-    component: () => import("../pages/ClinicianSignup.vue")
-  },
-  {
-    path: '/engineerSignup',
-    name: "engineerSignup",
-    component: () => import("../pages/EngineerSignup.vue")
-  },
-  {
     path: '/projects',
     name: "Projects",
     component: () => import("../pages/ProjectList.vue"),
@@ -75,14 +65,6 @@ const routes = [
     path: '/dashboard',
     name: "dashboard",
     component: () => import("../pages/dashboard.vue")
-  },
-  {
-    path: '/fullmess',
-    name: "fullmess",
-    component: () => import("../pages/fullmess.vue"),
-    meta: {
-      requiresAuth: true
-    }
   },
   {
     path: '/recommendations',
